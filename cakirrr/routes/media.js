@@ -8,10 +8,12 @@ const { Media, CATEGORIES } = require('../models/Media');
 const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
+const MAX_THUMB_BYTES = 400 * 1024;
+const IMAGE_HEADERS = { 'Cache-Control': 'public, max-age=604800, immutable', 'Content-Disposition': 'inline', 'Content-Security-Policy': "default-src 'none'; sandbox" };
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: config.maxUploadBytes, files: 1, fields: 6 },
+  limits: { fileSize: config.maxUploadBytes, files: 2, fields: 6 },
 });
 
 // Dosya içeriğinin gerçekten izin verilen bir görsel olduğunu imzasından doğrular
@@ -45,35 +47,52 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// Genel: görsel verisi
+// Genel: asıl görsel
 router.get('/:id/image', validId, async (req, res, next) => {
   try {
     const item = await Media.findById(req.params.id).select('+image.data image.contentType');
     if (!item) return res.status(404).end();
-    res.set({
-      'Content-Type': item.image.contentType,
-      'Content-Length': item.image.data.length,
-      'Cache-Control': 'public, max-age=604800, immutable',
-      'Content-Disposition': 'inline',
-    });
+    res.set({ ...IMAGE_HEADERS, 'Content-Type': item.image.contentType, 'Content-Length': item.image.data.length });
     res.end(item.image.data);
   } catch (err) {
     next(err);
   }
 });
 
-// Yönetici: yeni medya yükle
-router.post('/', requireAuth, upload.single('image'), async (req, res, next) => {
+// Genel: küçük önizleme (yoksa asıl görsele döner)
+router.get('/:id/thumb', validId, async (req, res, next) => {
   try {
-    if (!req.file) return res.status(400).json({ error: 'Görsel dosyası seçilmedi.' });
+    const item = await Media.findById(req.params.id).select('+image.data +thumb.data image.contentType thumb.contentType');
+    if (!item) return res.status(404).end();
+    const source = item.thumb && item.thumb.data ? item.thumb : item.image;
+    res.set({ ...IMAGE_HEADERS, 'Content-Type': source.contentType, 'Content-Length': source.data.length });
+    res.end(source.data);
+  } catch (err) {
+    next(err);
+  }
+});
 
-    const contentType = detectImageType(req.file.buffer);
+// Yönetici: yeni medya yükle
+router.post('/', requireAuth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'thumb', maxCount: 1 }]), async (req, res, next) => {
+  try {
+    const file = req.files && req.files.image && req.files.image[0];
+    if (!file) return res.status(400).json({ error: 'Görsel dosyası seçilmedi.' });
+
+    const contentType = detectImageType(file.buffer);
     if (!contentType) {
       return res.status(415).json({ error: 'Yalnızca JPG, PNG, WEBP ve GIF dosyaları yüklenebilir.' });
     }
 
     const title = cleanText(req.body.title, 80);
     if (!title) return res.status(400).json({ error: 'Medya başlığı zorunludur.' });
+
+    // Önizleme geçersizse sessizce atlanır; asıl görsel yine de yüklenir
+    let thumb = null;
+    const thumbFile = req.files.thumb && req.files.thumb[0];
+    if (thumbFile && thumbFile.size <= MAX_THUMB_BYTES) {
+      const thumbType = detectImageType(thumbFile.buffer);
+      if (thumbType) thumb = { data: thumbFile.buffer, contentType: thumbType };
+    }
 
     const category = CATEGORIES.includes(req.body.category) ? req.body.category : 'genel';
     const last = await Media.findOne().sort({ order: -1 }).select('order');
@@ -83,8 +102,9 @@ router.post('/', requireAuth, upload.single('image'), async (req, res, next) => 
       description: cleanText(req.body.description, 300),
       category,
       order: last ? last.order + 1 : 0,
-      size: req.file.size,
-      image: { data: req.file.buffer, contentType },
+      size: file.size,
+      image: { data: file.buffer, contentType },
+      ...(thumb && { thumb }),
     });
     res.status(201).json(item.toPublic());
   } catch (err) {

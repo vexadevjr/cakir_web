@@ -16,6 +16,11 @@ const mediaSchema = new mongoose.Schema(
       data: { type: Buffer, required: true, select: false },
       contentType: { type: String, required: true },
     },
+    // Önizleme için küçük sürüm (isteğe bağlı; yoksa asıl görsel kullanılır)
+    thumb: {
+      data: { type: Buffer, select: false },
+      contentType: { type: String },
+    },
   },
   { timestamps: true }
 );
@@ -33,6 +38,7 @@ mediaSchema.methods.toPublic = function toPublic() {
     size: this.size,
     createdAt: this.createdAt,
     url: `/api/media/${this._id}/image`,
+    thumb: `/api/media/${this._id}/thumb`,
   };
 };
 

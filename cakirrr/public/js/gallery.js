@@ -27,7 +27,7 @@
 
             var img = document.createElement("div");
             img.className = "matrix-img-box";
-            img.style.backgroundImage = "url('" + item.url + "')";
+            img.style.backgroundImage = "url('" + item.thumb + "')";
 
             var info = document.createElement("div");
             info.className = "matrix-info";

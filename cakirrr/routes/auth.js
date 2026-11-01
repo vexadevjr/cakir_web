@@ -7,7 +7,14 @@ const { issueSession, readSession, clearSession, safeEqual, requireAuth } = requ
 
 const router = express.Router();
 
-// Kaba kuvvet saldırılarına karşı: 15 dakikada en fazla 8 başarısız deneme
+// Kimlik doğrulama yanıtları hiçbir zaman önbelleğe alınmaz
+router.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
+
+// Kaba kuvvet koruması, iki katman:
+// 1) IP başına 15 dakikada en fazla 8 başarısız deneme
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 8,
@@ -17,32 +24,55 @@ const loginLimiter = rateLimit({
   message: { error: 'Çok fazla başarısız deneme. Lütfen 15 dakika sonra tekrar deneyin.' },
 });
 
-router.post('/login', loginLimiter, (req, res) => {
-  const { username, password } = req.body || {};
-  if (typeof username !== 'string' || typeof password !== 'string') {
-    return res.status(400).json({ error: 'Kullanıcı adı ve şifre gereklidir.' });
-  }
-
-  // İki alan da her durumda karşılaştırılır; hangisinin yanlış olduğu belli olmaz
-  const userOk = safeEqual(username, config.adminUsername);
-  const passOk = safeEqual(password, config.adminPassword);
-  if (!(userOk && passOk)) {
-    return res.status(401).json({ error: 'Kullanıcı adı veya şifre hatalı.' });
-  }
-
-  const csrf = issueSession(res, config.adminUsername);
-  res.json({ username: config.adminUsername, csrf });
+// 2) Saldırı birçok IP'den dağıtık yapılsa bile saatte en fazla 40 başarısız deneme
+const globalLoginLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  limit: 40,
+  skipSuccessfulRequests: true,
+  keyGenerator: () => 'login-global',
+  standardHeaders: false,
+  legacyHeaders: false,
+  message: { error: 'Giriş geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.' },
 });
 
-router.get('/me', (req, res) => {
-  const session = readSession(req);
-  if (!session) return res.status(401).json({ error: 'Oturum yok.' });
-  res.json({ username: session.sub, csrf: session.csrf });
+router.post('/login', globalLoginLimiter, loginLimiter, async (req, res, next) => {
+  try {
+    const { username, password } = req.body || {};
+    if (typeof username !== 'string' || typeof password !== 'string' || username.length > 100 || password.length > 200) {
+      return res.status(400).json({ error: 'Kullanıcı adı ve şifre gereklidir.' });
+    }
+
+    // İki alan da her durumda karşılaştırılır; hangisinin yanlış olduğu belli olmaz
+    const userOk = safeEqual(username, config.adminUsername);
+    const passOk = safeEqual(password, config.adminPassword);
+    if (!(userOk && passOk)) {
+      return res.status(401).json({ error: 'Kullanıcı adı veya şifre hatalı.' });
+    }
+
+    const csrf = await issueSession(res, config.adminUsername);
+    res.json({ username: config.adminUsername, csrf });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.post('/logout', requireAuth, (req, res) => {
-  clearSession(res);
-  res.json({ ok: true });
+router.get('/me', async (req, res, next) => {
+  try {
+    const session = await readSession(req);
+    if (!session) return res.status(401).json({ error: 'Oturum yok.' });
+    res.json({ username: session.sub, csrf: session.csrf });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/logout', requireAuth, async (req, res, next) => {
+  try {
+    await clearSession(req, res);
+    res.json({ ok: true });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

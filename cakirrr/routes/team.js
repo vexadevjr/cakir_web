@@ -68,6 +68,7 @@ router.get('/', async (req, res, next) => {
 // Yönetici: ayrıntılı liste
 router.get('/admin', requireAuth, async (req, res, next) => {
   try {
+    res.set('Cache-Control', 'no-store');
     const members = await TeamMember.find().sort({ order: 1, createdAt: 1 });
     res.json({ discordConfigured: discord.isConfigured(), items: members.map((m) => m.toAdmin()) });
   } catch (err) {

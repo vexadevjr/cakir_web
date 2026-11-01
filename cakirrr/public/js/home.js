@@ -1,32 +1,88 @@
-// Ana sayfa: galeri paneli ve son görsellerin yüklenmesi
+// Ana sayfa: yan paneller, galeri önizlemesi, Discord rakamları ve yönetim kadrosu
 (function () {
-    var panel = document.getElementById("galleryPanel");
-    var openBtn = document.getElementById("galleryOpenBtn");
-    var closeBtn = document.getElementById("galleryCloseBtn");
+    "use strict";
 
-    function togglePanel() {
-        var hidden = panel.classList.toggle("panel-hidden");
-        openBtn.classList.toggle("btn-visible", hidden);
+    // ---------- Katlanabilir paneller ----------
+    function setupPanel(panelId, openId, closeId) {
+        var panel = document.getElementById(panelId);
+        var openBtn = document.getElementById(openId);
+        var closeBtn = document.getElementById(closeId);
+        if (!panel || !openBtn || !closeBtn) return;
+
+        function toggle() {
+            var hidden = panel.classList.toggle("panel-hidden");
+            openBtn.classList.toggle("btn-visible", hidden);
+        }
+        closeBtn.addEventListener("click", toggle);
+        openBtn.addEventListener("click", toggle);
     }
 
-    if (panel && openBtn && closeBtn) {
-        closeBtn.addEventListener("click", togglePanel);
-        openBtn.addEventListener("click", togglePanel);
-    }
+    setupPanel("galleryPanel", "galleryOpenBtn", "galleryCloseBtn");
+    setupPanel("infoPanel", "infoOpenBtn", "infoCloseBtn");
 
-    // Panelde son 3 görseli göster; sunucuya ulaşılamazsa varsayılan görsel kalır
+    // ---------- Galeri önizlemesi: tüm görseller ----------
     var grid = document.getElementById("panelGalleryGrid");
-    if (!grid) return;
 
-    fetch("/api/media")
-        .then(function (res) { return res.ok ? res.json() : []; })
-        .then(function (items) {
-            var boxes = grid.querySelectorAll(".gallery-preview-box");
-            items.slice(-3).reverse().forEach(function (item, i) {
-                if (boxes[i]) boxes[i].style.backgroundImage = "url('" + item.url + "')";
-            });
-        })
-        .catch(function () { /* varsayılan görsel kullanılır */ });
+    function showGalleryEmpty(text) {
+        grid.textContent = "";
+        var p = document.createElement("p");
+        p.className = "panel-gallery-empty";
+        p.textContent = text;
+        grid.appendChild(p);
+    }
+
+    if (grid) {
+        fetch("/api/media")
+            .then(function (res) { return res.ok ? res.json() : null; })
+            .then(function (items) {
+                if (!items) return; // Varsayılan görseller kalır
+                if (!items.length) return showGalleryEmpty("HENÜZ GÖRSEL YOK");
+
+                grid.textContent = "";
+                // En yeni görsel başta
+                items.slice().reverse().forEach(function (item) {
+                    var box = document.createElement("a");
+                    box.className = "gallery-preview-box";
+                    box.href = "pages/galeri.html";
+                    box.title = item.title;
+                    box.setAttribute("aria-label", item.title);
+                    box.style.backgroundImage = "url('" + item.thumb + "')";
+                    grid.appendChild(box);
+                });
+            })
+            .catch(function () { /* varsayılan görseller kalır */ });
+    }
+
+    // ---------- Discord rakamları ----------
+    var statList = document.getElementById("statList");
+    var statNote = document.getElementById("statNote");
+
+    function formatNumber(n) {
+        return Number(n).toLocaleString("tr-TR");
+    }
+
+    if (statList) {
+        fetch("/api/stats")
+            .then(function (res) { return res.ok ? res.json() : { available: false }; })
+            .then(function (stats) {
+                if (!stats.available) {
+                    statNote.textContent = "Rakamlar şu an alınamıyor.";
+                    return;
+                }
+                ["activeDrivers", "totalDrivers", "totalMembers"].forEach(function (key) {
+                    var node = statList.querySelector('[data-stat="' + key + '"]');
+                    if (!node) return;
+                    if (stats[key] === null || stats[key] === undefined) {
+                        // Aktif sürücü rolü tanımlı değilse satır gizlenir
+                        node.parentNode.hidden = true;
+                    } else {
+                        node.textContent = formatNumber(stats[key]);
+                    }
+                });
+                statNote.textContent = "Kaynak: Discord sunucumuz";
+            })
+            .catch(function () { statNote.textContent = "Rakamlar şu an alınamıyor."; });
+    }
 
     // ---------- Yönetim kadrosu ----------
     // API'ye ulaşılamazsa gösterilecek varsayılan liste

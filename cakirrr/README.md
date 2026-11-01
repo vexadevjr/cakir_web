@@ -23,16 +23,18 @@ Node.js + Express + MongoDB ile çalışan TruckersMP VTC sitesi.
 Yerelde HTTP ile test ederken `.env` içinde `COOKIE_SECURE=false` yapın. Canlıda HTTPS kullanın ve `true` bırakın.
 Nginx, Cloudflare, Render, Railway gibi bir proxy arkasındaysanız `TRUST_PROXY=1` ekleyin.
 
-## Discord yönetim profilleri
+## Discord entegrasyonu
 
-Yönetim panelindeki "Yönetim Kadrosu" bölümünden bir üyenin Discord ID'sini girdiğinizde kullanıcı adı ve profil fotoğrafı Discord'dan otomatik çekilir ve sitede (Hakkımızda ile şirket profili penceresi) gösterilir.
+Tüm Discord verileri sunucu tarafında çekilir; bot anahtarı tarayıcıya hiçbir zaman gönderilmez.
 
-1. discord.com/developers/applications adresinde yeni bir uygulama oluşturun.
-2. Bot sekmesinden "Reset Token" ile anahtarı alıp `.env` dosyasına `DISCORD_BOT_TOKEN` olarak yazın.
-3. Botu sunucuya eklemeniz gerekmez; yalnızca herkese açık profil bilgileri okunur.
-4. Discord ID'yi almak için Discord'da Ayarlar > Gelişmiş > Geliştirici Modu'nu açın, kişinin profiline sağ tıklayıp "Kullanıcı ID'sini Kopyala" deyin.
+**1. Bot oluşturma:** discord.com/developers/applications adresinde yeni uygulama açın, Bot sekmesinden "Reset Token" ile anahtarı alıp `.env` dosyasına `DISCORD_BOT_TOKEN` olarak yazın.
 
-Profil fotoğrafları 6 saatte bir kendiliğinden tazelenir; panelden "YENİLE" ile hemen güncelleyebilirsiniz. Anahtar tanımlı değilse üyeler yine isimle eklenebilir.
+**2. Yönetim kadrosu profilleri:** Yalnızca anahtar yeterlidir. Yönetim panelindeki "Yönetim Kadrosu" bölümüne Discord ID girildiğinde kullanıcı adı ve profil fotoğrafı otomatik çekilir. Fotoğraflar 6 saatte bir tazelenir; panelden "YENİLE" ile hemen güncellenebilir.
+
+**3. Ana sayfadaki şirket bilgileri (sürücü ve üye sayıları):** Bot bu sefer sunucunuzda bulunmalıdır.
+- Developer Portal > OAuth2 > URL Generator bölümünde yalnızca `bot` kapsamını seçip oluşan bağlantıyla botu sunucuya ekleyin. Hiçbir yetki (permission) vermeniz gerekmez.
+- `.env` dosyasına `DISCORD_GUILD_ID` (sunucu ID), `DISCORD_DRIVER_ROLE_ID` (Driver rolü ID) ve isterseniz `DISCORD_ACTIVE_ROLE_ID` (aktif sürücü rolü) yazın.
+- Rakamlar 10 dakikada bir tazelenir ve önbellekte tutulur; Discord erişilemezse son bilinen değerler gösterilir. Sitede yalnızca toplu sayılar yer alır, hiçbir üye bilgisi paylaşılmaz.
 
 ## Klasör yapısı
 
@@ -41,10 +43,22 @@ server.js        Uygulama girişi ve güvenlik katmanları
 config/          Ortam değişkenleri ve MongoDB bağlantısı
 models/          Mongoose modelleri
 middleware/      Oturum ve CSRF doğrulaması
-routes/          /api/auth, /api/media ve /api/team uç noktaları
-services/        Discord API istemcisi
+routes/          /api/auth, /api/media, /api/team ve /api/stats uç noktaları
+services/        Discord API istemcisi ve istatistik önbelleği
+utils/           Log maskeleme yardımcıları
 scripts/         İlk kurulum örnek verisi
 public/          Tarayıcıya sunulan site dosyaları
 ```
 
 Görseller MongoDB içinde saklanır; ayrıca bir dosya klasörüne ihtiyaç yoktur.
+
+## Güvenlik özeti
+
+- Oturum çerezi `httpOnly`, `SameSite=Strict` ve HTTPS'te `__Host-` önekli; oturumlar veritabanında tutulur, çıkış yapınca token anında geçersiz olur.
+- Durum değiştiren tüm yönetici isteklerinde CSRF belirteci zorunlu.
+- Giriş denemeleri hem IP başına hem genel olarak sınırlandırılır.
+- Sıkı Content-Security-Policy, HSTS, Permissions-Policy ve diğer güvenlik başlıkları aktif.
+- Hata günlüklerinde şifre, bot anahtarı ve MongoDB kimlik bilgileri maskelenir.
+- Yüklenen dosyalar imzasından doğrulanır; yüklenen görseller betik çalıştıramayacak şekilde sunulur.
+- Yalnızca `public` klasörü yayınlanır; `.env` dosyasını asla depoya veya başkalarıyla paylaşmayın.
+- Bot anahtarı veya şifre sızdığına dair en küçük şüphede: anahtarı Developer Portal'dan yenileyin, `ADMIN_PASSWORD` ve `JWT_SECRET` değerlerini değiştirin (JWT_SECRET değişince tüm oturumlar düşer).

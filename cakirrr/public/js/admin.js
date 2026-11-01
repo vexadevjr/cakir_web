@@ -179,7 +179,7 @@
         }
 
         var preview = el("div", "item-preview");
-        preview.style.backgroundImage = "url('" + item.url + "')";
+        preview.style.backgroundImage = "url('" + item.thumb + "')";
 
         var details = el("div", "item-details");
         details.appendChild(el("div", "item-title", item.title));
@@ -274,13 +274,39 @@
     $("imgTitle").addEventListener("input", function () { $("titleCount").textContent = this.value.length + "/80"; });
     $("imgDesc").addEventListener("input", function () { $("descCount").textContent = this.value.length + "/300"; });
 
+    // Galeri önizlemeleri hızlı açılsın diye tarayıcıda 640 px'lik küçük sürüm üretilir
+    function makeThumb(file) {
+        return new Promise(function (resolve) {
+            var url = URL.createObjectURL(file);
+            var img = new Image();
+            img.onload = function () {
+                var scale = Math.min(1, 640 / Math.max(img.width, img.height));
+                var canvas = document.createElement("canvas");
+                canvas.width = Math.max(1, Math.round(img.width * scale));
+                canvas.height = Math.max(1, Math.round(img.height * scale));
+                canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+                URL.revokeObjectURL(url);
+                canvas.toBlob(function (blob) { resolve(blob); }, "image/jpeg", 0.82);
+            };
+            img.onerror = function () { URL.revokeObjectURL(url); resolve(null); };
+            img.src = url;
+        });
+    }
+
     function uploadOne(file, title, category, description, onProgress) {
+        return makeThumb(file).then(function (thumb) {
+            return sendUpload(file, thumb, title, category, description, onProgress);
+        });
+    }
+
+    function sendUpload(file, thumb, title, category, description, onProgress) {
         return new Promise(function (resolve, reject) {
             var form = new FormData();
             form.append("title", title);
             form.append("category", category);
             form.append("description", description);
             form.append("image", file);
+            if (thumb) form.append("thumb", thumb, "thumb.jpg");
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/api/media");

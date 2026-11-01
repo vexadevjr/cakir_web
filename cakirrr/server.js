@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const config = require('./config');
 const { connectDB } = require('./config/db');
+const { logError } = require('./utils/redact');
 const { seedDefaults, seedTeam } = require('./scripts/seed');
 
 const app = express();
@@ -36,6 +37,11 @@ app.use(
     crossOriginEmbedderPolicy: false,
   })
 );
+// Tarayıcı özelliklerini kapatır; kullanılmayan API'ler kötüye kullanılamaz
+app.use((req, res, next) => {
+  res.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()');
+  next();
+});
 app.use(compression());
 app.use(cookieParser());
 app.use(express.json({ limit: '20kb' }));
@@ -46,6 +52,7 @@ app.use('/api', rateLimit({ windowMs: 60 * 1000, limit: 120, standardHeaders: tr
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/media', require('./routes/media'));
 app.use('/api/team', require('./routes/team'));
+app.use('/api/stats', require('./routes/stats'));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Kaynak bulunamadı.' }));
 
 // Yönetim sayfası arama motorlarından gizlenir
@@ -69,21 +76,21 @@ app.use((req, res) => res.status(404).sendFile(path.join(publicDir, 'index.html'
 // Hata ayrıntıları istemciye sızdırılmaz
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  console.error('[Hata]', err);
+  logError('[Hata]', err);
   if (err.type === 'entity.parse.failed') return res.status(400).json({ error: 'Geçersiz istek verisi.' });
   res.status(500).json({ error: 'Sunucuda bir hata oluştu.' });
 });
 
 async function start() {
   await connectDB();
-  await seedDefaults().catch((err) => console.error('[Seed] Atlandı:', err.message));
-  await seedTeam().catch((err) => console.error('[Seed] Kadro atlandı:', err.message));
+  await seedDefaults().catch((err) => logError('[Seed] Atlandı:', err));
+  await seedTeam().catch((err) => logError('[Seed] Kadro atlandı:', err));
   app.listen(config.port, () => console.log(`[Sunucu] http://localhost:${config.port} adresinde çalışıyor.`));
 }
 
 if (require.main === module) {
   start().catch((err) => {
-    console.error('[Başlatma hatası]', err.message);
+    logError('[Başlatma hatası]', err);
     process.exit(1);
   });
 }
