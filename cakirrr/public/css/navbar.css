@@ -1,0 +1,134 @@
+/* ==========================================================================
+   NAVBAR (ÜST MENÜ)
+   ========================================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    height: 75px; 
+    background-color: #0f1011; 
+    border-bottom: 2px solid #282b30; 
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Sol Logo ve Yazı Grubu */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    height: 100%;
+}
+
+/* Rozet logo */
+.logo-area img {
+    height: 44px;
+    width: 44px;
+    display: block;
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 2px solid #5a626c; 
+}
+
+/* Şirket ismi */
+.logo-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Menü linkleri */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    height: 100%;
+}
+
+.nav-links a {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700; 
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #9aa1a9;
+    letter-spacing: 1.5px;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff; 
+}
+
+/* Mobil menü butonu (masaüstünde gizli) */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid #282b30;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #ffffff;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+    .navbar { padding: 0 5%; }
+
+    .logo-title { font-size: 0.85rem; letter-spacing: 1px; }
+
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+        position: absolute;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background-color: #0f1011;
+        border-bottom: 2px solid #282b30;
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        transition: max-height 0.3s ease, visibility 0.3s;
+    }
+
+    .nav-links.nav-open {
+        max-height: 320px;
+        visibility: visible;
+    }
+
+    .nav-links li { border-top: 1px solid #1a1c1e; }
+
+    .nav-links a {
+        display: block;
+        padding: 18px 8%;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .logo-title { display: none; }
+}

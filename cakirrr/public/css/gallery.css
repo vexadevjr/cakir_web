@@ -1,0 +1,189 @@
+/* ==========================================================================
+   GALERİ SAYFASI
+   ========================================================================== */
+body { padding-top: 75px; background-color: #0c0d0e; }
+
+.gallery-page-wrapper {
+    min-height: calc(100vh - 152px);
+    padding: 80px 8%;
+    text-align: center;
+}
+
+.gallery-page-wrapper .content-section { padding: 0; width: 100%; }
+
+.gallery-subtitle {
+    font-size: 1.1rem;
+    color: #5a626c;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.nav-links a.is-active { color: #ffffff; }
+
+.media-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+    gap: 25px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.matrix-card {
+    background-color: #0f1011;
+    border: 1px solid #282b30;
+    border-bottom: 3px solid #5a626c;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.matrix-img-box {
+    width: 100%;
+    height: 200px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid #1a1c1e;
+    transition: transform 0.4s ease;
+}
+
+.matrix-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 0 5px;
+}
+
+.matrix-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+}
+
+.matrix-meta {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #5a626c;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.matrix-card:hover {
+    transform: translateY(-4px);
+    border-bottom-color: #ffffff;
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.03), 0 15px 30px rgba(0, 0, 0, 0.7);
+}
+
+.matrix-card:hover .matrix-img-box { transform: scale(1.02); }
+.matrix-card:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+
+.gallery-state {
+    grid-column: 1 / -1;
+    padding: 60px 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #5a626c;
+}
+
+/* Büyük görsel görüntüleyici */
+.visor-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(10, 11, 12, 0.95);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.visor-overlay.visor-active { opacity: 1; pointer-events: auto; }
+
+.visor-container {
+    background-color: #0c0d0e;
+    border: 1px solid #282b30;
+    border-top: 4px solid #ffffff;
+    padding: 30px;
+    width: 750px;
+    max-width: 92%;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.visor-overlay.visor-active .visor-container { transform: scale(1); }
+
+.visor-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #5a626c;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+.visor-close:hover { color: #ffffff; }
+
+.visor-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 55vh;
+    margin-top: 12px;
+    object-fit: contain;
+    border: 1px solid #1a1c1e;
+}
+
+.visor-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.visor-desc {
+    font-family: 'Rajdhani', sans-serif;
+    color: #9aa1a9;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .gallery-page-wrapper { padding: 50px 5%; }
+    .gallery-subtitle { font-size: 0.85rem; }
+    .media-matrix-grid { margin-top: 35px; gap: 18px; }
+    .matrix-img-box { height: 180px; }
+    .visor-container { padding: 52px 16px 20px; }
+}

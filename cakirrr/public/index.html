@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÇAKIR COMPANY | TruckersMP VTC</title>
+    <meta name="description" content="Çakır Company, TruckersMP üzerinde Euro Truck Simulator 2 sürücülerini bir araya getiren sanal taşımacılık topluluğudur. Konvoylarımıza ve ekibimize katılın.">
+    <meta name="theme-color" content="#0f1011">
+    <link rel="icon" type="image/png" href="images/cakir_logo1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/sections.css">
+</head>
+<body>
+
+    <!-- Üst menü -->
+    <nav class="navbar">
+        <div class="logo-area">
+            <img src="images/cakir_logo1.png" alt="Çakır Company Logo">
+            <span class="logo-title">| Çakır Company</span>
+        </div>
+
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navLinks">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#anasayfa">Ana Sayfa</a></li>
+            <li><a href="#hakkimizda">Hakkımızda</a></li>
+            <li><a href="pages/galeri.html">Galeri</a></li>
+        </ul>
+    </nav>
+
+    <!-- Giriş alanı -->
+    <header id="anasayfa" class="hero-section">
+
+        <!-- Sol galeri paneli -->
+        <aside class="hero-left-panel" id="galleryPanel">
+            <button class="panel-close-btn" id="galleryCloseBtn" type="button" aria-label="Galeri panelini kapat">&lt;&lt;</button>
+            <div class="panel-header">ŞİRKET GALERİMİZ</div>
+            <p class="panel-desc">
+                Konvoylarımızdan ve filomuzdan en yeni kareler burada. Yolculuklarımıza yakından göz atın.
+            </p>
+            <div class="panel-gallery-grid" id="panelGalleryGrid">
+                <div class="gallery-preview-box"></div>
+                <div class="gallery-preview-box"></div>
+                <div class="gallery-preview-box"></div>
+            </div>
+            <a href="pages/galeri.html" class="panel-gallery-btn">TÜMÜNÜ GÖRÜNTÜLE</a>
+        </aside>
+
+        <button class="panel-open-btn" id="galleryOpenBtn" type="button" aria-label="Galeri panelini aç">
+            <span class="open-arrow">&gt;&gt;</span>
+            <span class="open-text">GALERİ</span>
+        </button>
+
+        <!-- Merkez içerik -->
+        <div class="hero-content">
+            <h1 class="metallic-text">ÇAKIR COMPANY</h1>
+            <p class="hero-subtext">TruckersMP Yollarında Seçkin Sanal Lojistik Topluluğu</p>
+
+            <div class="hero-profile-action">
+                <button class="btn-more" id="openProfileBtn" type="button">Şirket Profili</button>
+            </div>
+
+            <div class="hero-links-panel">
+                <a href="https://discord.com/invite/cakircompany" target="_blank" rel="noopener noreferrer" class="panel-btn discord-badge">
+                    <svg class="panel-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" aria-hidden="true">
+                        <path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.4-5c.87-.64,1.71-1.32,2.51-2a75.43,75.43,0,0,0,72.68,0c.8.71,1.64,1.39,2.51,2a68.43,68.43,0,0,1-10.4,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129.87,50.35,123.86,27.55,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.79,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/>
+                    </svg>
+                    DISCORD SUNUCUMUZ
+                </a>
+
+                <a href="https://truckersmp.com/vtc/93352" target="_blank" rel="noopener noreferrer" class="panel-btn vtc-badge">
+                    <svg class="panel-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" aria-hidden="true">
+                        <path fill="currentColor" d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416v48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48v320c0 26.5 21.5 48 48 48h16c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h16c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z"/>
+                    </svg>
+                    TRUCKERSMP VTC PAGE
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Şirket künyesi -->
+    <div class="modal-overlay" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeProfileBtn" type="button">&lt;&lt; GERİ ÇEK</button>
+            <div class="modal-main-logo">
+                <img src="images/cakir_logo1.png" alt="Çakır Company Logo">
+            </div>
+            <div class="modal-main-title" id="profileTitle">ÇAKIR COMPANY</div>
+            <div class="modal-date-badge">KURULUŞ: 2026</div>
+
+            <div class="modal-grid-layout">
+                <div class="modal-data-box span-full">
+                    <div class="modal-box-label">ŞİRKET SAHİBİ</div>
+                    <div class="modal-box-value">ÇAKIR</div>
+                </div>
+            </div>
+
+            <div class="modal-full-box">
+                <div class="modal-box-label modal-box-label-spaced">ŞİRKET AÇIKLAMASI</div>
+                <p>
+                    Çakır Company, TruckersMP üzerinde Euro Truck Simulator 2 oynayan sürücüleri ortak bir çatı altında buluşturan sanal taşımacılık şirketidir. Düzenli konvoylar, ortak kurallar ve karşılıklı saygı üzerine kurulu bir ekip olarak Avrupa yollarında birlikte sürüyoruz.
+                </p>
+            </div>
+
+            <div class="management-grid" id="modalTeam">
+                <div class="modal-box-label span-full">YÖNETİM KADROSU</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hakkımızda -->
+    <section id="hakkimizda" class="about-section">
+        <div class="about-inner">
+
+            <header class="about-head">
+                <span class="eyebrow">KURUMSAL</span>
+                <h2>HAKKIMIZDA</h2>
+                <p class="about-lead">
+                    Düzenli konvoylar, açık kurallar ve karşılıklı saygıyla ilerleyen bir TruckersMP topluluğuyuz.
+                </p>
+            </header>
+
+            <div class="about-layout">
+                <div class="about-articles">
+                    <article class="about-article">
+                        <span class="article-no">01</span>
+                        <h3>Biz Kimiz?</h3>
+                        <p>
+                            Çakır Company, TruckersMP üzerinde Euro Truck Simulator 2 oynayan sürücüler için kurulmuş bir sanal taşımacılık topluluğudur. Amacımız yalnızca yük taşımak değil; düzenli konvoylar, ortak etkinlikler ve samimi bir ekip ortamıyla oyunu birlikte daha keyifli hale getirmek.
+                        </p>
+                    </article>
+
+                    <article class="about-article">
+                        <span class="article-no">02</span>
+                        <h3>Vizyon &amp; Hedeflerimiz</h3>
+                        <p>
+                            TruckersMP kurallarına tam uyumlu, trafikte örnek davranan ve her konvoyda ekibin bir parçası olduğunu hisseden sürücülerden oluşan güçlü bir topluluk olmak. Büyürken kaliteden ödün vermiyor, her yeni üyeyi aynı özenle karşılıyoruz.
+                        </p>
+                    </article>
+                </div>
+
+                <aside class="company-card" aria-label="Şirket künyesi">
+                    <div class="company-card-head">
+                        <img src="images/cakir_logo1.png" alt="Çakır Company Kurumsal Amblem">
+                        <div>
+                            <span class="company-name">ÇAKIR COMPANY</span>
+                            <span class="company-type">Sanal Taşımacılık Şirketi</span>
+                        </div>
+                    </div>
+                    <dl class="company-facts">
+                        <div><dt>Kuruluş</dt><dd>2026</dd></div>
+                        <div><dt>Kurucu</dt><dd>Çakır</dd></div>
+                        <div><dt>Platform</dt><dd>TruckersMP</dd></div>
+                        <div><dt>Oyun</dt><dd>Euro Truck Simulator 2</dd></div>
+                    </dl>
+                </aside>
+            </div>
+
+            <div class="about-block-section">
+                <h3 class="section-label">DEĞERLERİMİZ</h3>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <span class="value-index">01</span>
+                        <h4>Disiplin</h4>
+                        <p>Konvoyda sıra, mesafe ve hız kurallarına eksiksiz uyarız.</p>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-index">02</span>
+                        <h4>Fair Play</h4>
+                        <p>TruckersMP kurallarına ve yoldaki her sürücüye saygı gösteririz.</p>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-index">03</span>
+                        <h4>Takım Ruhu</h4>
+                        <p>Yeni başlayanlar da deneyimliler de aynı ekibin parçasıdır.</p>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-index">04</span>
+                        <h4>Gelişim</h4>
+                        <p>Etkinlikler ve yeni rotalarla sürüş kalitemizi birlikte artırırız.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-block-section">
+                <h3 class="section-label">YÖNETİM KADROSU</h3>
+                <div class="team-grid" id="teamGrid"></div>
+            </div>
+
+            <div class="join-banner">
+                <div class="join-text">
+                    <h3>Aramıza Katıl</h3>
+                    <p>Konvoylarımızdan haberdar olmak ve ekiple tanışmak için Discord sunucumuza gel, VTC sayfamızdan şirketimizi incele.</p>
+                </div>
+                <div class="join-actions">
+                    <a href="https://discord.com/invite/cakircompany" target="_blank" rel="noopener noreferrer" class="panel-btn discord-badge">DISCORD</a>
+                    <a href="https://truckersmp.com/vtc/93352" target="_blank" rel="noopener noreferrer" class="panel-btn vtc-badge">VTC SAYFASI</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Alt bilgi -->
+    <footer class="corporate-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <span>© 2026 ÇAKIR COMPANY. TÜM HAKLARI SAKLIDIR.</span>
+            </div>
+            <div class="footer-center">
+                <span>TRUCKERSMP</span>
+            </div>
+            <div class="footer-right">
+                <a href="https://discord.com/invite/cakircompany" target="_blank" rel="noopener noreferrer" class="footer-link">DISCORD</a>
+                <span class="footer-link-divider">|</span>
+                <a href="https://truckersmp.com/vtc/93352" target="_blank" rel="noopener noreferrer" class="footer-link">TRUCKERSMP VTC</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/nav.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>

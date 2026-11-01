@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0f1011">
+    <title>Yönetim Konsolu | ÇAKIR COMPANY</title>
+    <link rel="icon" type="image/png" href="../images/cakir_logo1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-area">
+            <img src="../images/cakir_logo1.png" alt="Logo">
+            <span class="logo-title">| YÖNETİM KONSOLU</span>
+        </div>
+
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navLinks">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../index.html">Ana Sayfa</a></li>
+            <li><a href="galeri.html">Galeriye Git</a></li>
+        </ul>
+    </nav>
+
+    <main class="admin-wrapper">
+
+        <!-- Giriş -->
+        <form class="login-box" id="loginBox" autocomplete="on" novalidate>
+            <h3>SİSTEM GİRİŞİ</h3>
+            <p class="login-hint">Devam etmek için yönetici bilgilerinizi girin.</p>
+            <div class="input-group">
+                <label for="adminUser">KULLANICI ADI</label>
+                <input type="text" id="adminUser" class="admin-input" autocomplete="username" required>
+            </div>
+            <div class="input-group">
+                <label for="adminPass">ŞİFRE</label>
+                <input type="password" id="adminPass" class="admin-input" placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+            <div class="form-error" id="loginError" role="alert"></div>
+            <button type="submit" class="admin-btn" id="loginBtn">GİRİŞ YAP</button>
+        </form>
+
+        <!-- Yönetim paneli -->
+        <section class="dashboard-box" id="dashBox" hidden>
+            <div class="dash-header">
+                <div>
+                    <h2 class="dash-title">MEDYA YÖNETİM MERKEZİ</h2>
+                    <p class="dash-subtitle">Galeriye görsel ekleyin, düzenleyin ve sıralayın.</p>
+                </div>
+                <div class="dash-user">
+                    <span class="user-chip" id="userChip"></span>
+                    <button type="button" class="admin-btn admin-btn-ghost" id="logoutBtn">ÇIKIŞ</button>
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card"><div class="stat-card-label">TOPLAM MEDYA</div><div class="stat-card-value" id="statCount">0</div></div>
+                <div class="stat-card"><div class="stat-card-label">TOPLAM BOYUT</div><div class="stat-card-value" id="statSize">0 KB</div></div>
+                <div class="stat-card"><div class="stat-card-label">KATEGORİ</div><div class="stat-card-value" id="statCats">0</div></div>
+                <div class="stat-card"><div class="stat-card-label">SON YÜKLEME</div><div class="stat-card-value" id="statLast">—</div></div>
+            </div>
+
+            <div class="admin-grid-split">
+                <!-- Yükleme -->
+                <div>
+                    <h3 class="panel-title">YENİ MEDYA EKLE</h3>
+
+                    <div class="input-group">
+                        <label>GÖRSEL <span>JPG · PNG · WEBP · GIF / EN FAZLA 8 MB</span></label>
+                        <div class="dropzone" id="dropzone">
+                            <div class="dropzone-preview" id="dropPreview" hidden></div>
+                            <span class="dropzone-title" id="dropTitle">DOSYAYI BURAYA BIRAKIN</span>
+                            <span class="dropzone-note" id="dropNote">veya seçmek için tıklayın (birden fazla seçebilirsiniz)</span>
+                            <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="imgTitle">MEDYA BAŞLIĞI <span id="titleCount">0/80</span></label>
+                        <input type="text" id="imgTitle" class="admin-input" maxlength="80" placeholder="Örn: Paris Sevkiyatı">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="imgCategory">KATEGORİ</label>
+                        <select id="imgCategory" class="admin-input">
+                            <option value="genel">Genel</option>
+                            <option value="konvoy">Konvoy</option>
+                            <option value="etkinlik">Etkinlik</option>
+                            <option value="filo">Filo</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="imgDesc">AÇIKLAMA <span id="descCount">0/300</span></label>
+                        <textarea id="imgDesc" class="admin-input" maxlength="300" placeholder="Görselin altında gösterilecek kısa açıklama"></textarea>
+                    </div>
+
+                    <button type="button" class="admin-btn" id="uploadBtn">GALERİYE EKLE</button>
+                    <div class="progress-track" id="progressTrack" hidden><div class="progress-bar" id="progressBar"></div></div>
+                </div>
+
+                <!-- Kütüphane -->
+                <div>
+                    <h3 class="panel-title">MEDYA KÜTÜPHANESİ</h3>
+                    <div class="library-toolbar">
+                        <input type="search" id="searchInput" class="admin-input search-input" placeholder="Başlıkta ara..." aria-label="Başlıkta ara">
+                        <select id="filterCategory" class="admin-input" aria-label="Kategoriye göre filtrele">
+                            <option value="">Tüm kategoriler</option>
+                            <option value="genel">Genel</option>
+                            <option value="konvoy">Konvoy</option>
+                            <option value="etkinlik">Etkinlik</option>
+                            <option value="filo">Filo</option>
+                        </select>
+                    </div>
+                    <p class="reorder-note" id="reorderNote">Sıralamak için satırları sürükleyin veya ▲ ▼ tuşlarını kullanın.</p>
+                    <div class="media-manager-panel" id="adminMediaList"></div>
+                </div>
+            </div>
+
+            <!-- Yönetim kadrosu -->
+            <div class="team-admin">
+                <h3 class="panel-title">YÖNETİM KADROSU</h3>
+                <p class="reorder-note" id="discordNote">Discord ID girdiğinizde isim ve profil fotoğrafı otomatik çekilir.</p>
+
+                <div class="team-form">
+                    <div class="input-group">
+                        <label for="teamDiscordId">DISCORD ID</label>
+                        <input type="text" id="teamDiscordId" class="admin-input" inputmode="numeric" maxlength="20" placeholder="Örn: 123456789012345678">
+                    </div>
+                    <div class="input-group">
+                        <label for="teamName">GÖRÜNEN İSİM <span>İSTEĞE BAĞLI</span></label>
+                        <input type="text" id="teamName" class="admin-input" maxlength="40">
+                    </div>
+                    <div class="input-group">
+                        <label for="teamRole">RÜTBE</label>
+                        <input type="text" id="teamRole" class="admin-input" maxlength="40" placeholder="Örn: MODERATOR">
+                    </div>
+                    <div class="input-group">
+                        <label for="teamTone">RENK</label>
+                        <select id="teamTone" class="admin-input">
+                            <option value="staff">Ekip (gri)</option>
+                            <option value="ceo">Kurucu (beyaz)</option>
+                            <option value="dev">Geliştirici (kırmızı)</option>
+                            <option value="mgmt">Yönetim (mavi)</option>
+                        </select>
+                    </div>
+                    <button type="button" class="admin-btn" id="teamAddBtn">ÜYE EKLE</button>
+                </div>
+
+                <div class="media-manager-panel team-list" id="teamList"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Düzenleme penceresi -->
+    <div class="admin-modal" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editHeading" hidden>
+        <div class="admin-modal-box">
+            <h4 id="editHeading">MEDYAYI DÜZENLE</h4>
+            <div class="modal-edit-preview" id="editPreview"></div>
+            <div class="input-group">
+                <label for="editTitle">BAŞLIK</label>
+                <input type="text" id="editTitle" class="admin-input" maxlength="80">
+            </div>
+            <div class="input-group">
+                <label for="editCategory">KATEGORİ</label>
+                <select id="editCategory" class="admin-input">
+                    <option value="genel">Genel</option>
+                    <option value="konvoy">Konvoy</option>
+                    <option value="etkinlik">Etkinlik</option>
+                    <option value="filo">Filo</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="editDesc">AÇIKLAMA</label>
+                <textarea id="editDesc" class="admin-input" maxlength="300"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="admin-btn admin-btn-ghost" id="editCancel">VAZGEÇ</button>
+                <button type="button" class="admin-btn" id="editSave">KAYDET</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Üye düzenleme penceresi -->
+    <div class="admin-modal" id="teamEditModal" role="dialog" aria-modal="true" aria-labelledby="teamEditHeading" hidden>
+        <div class="admin-modal-box">
+            <h4 id="teamEditHeading">ÜYEYİ DÜZENLE</h4>
+            <div class="input-group">
+                <label for="teamEditName">GÖRÜNEN İSİM</label>
+                <input type="text" id="teamEditName" class="admin-input" maxlength="40">
+            </div>
+            <div class="input-group">
+                <label for="teamEditRole">RÜTBE</label>
+                <input type="text" id="teamEditRole" class="admin-input" maxlength="40">
+            </div>
+            <div class="input-group">
+                <label for="teamEditTone">RENK</label>
+                <select id="teamEditTone" class="admin-input">
+                    <option value="staff">Ekip (gri)</option>
+                    <option value="ceo">Kurucu (beyaz)</option>
+                    <option value="dev">Geliştirici (kırmızı)</option>
+                    <option value="mgmt">Yönetim (mavi)</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="admin-btn admin-btn-ghost" id="teamEditCancel">VAZGEÇ</button>
+                <button type="button" class="admin-btn" id="teamEditSave">KAYDET</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Silme onayı -->
+    <div class="admin-modal" id="deleteModal" role="alertdialog" aria-modal="true" aria-labelledby="deleteHeading" hidden>
+        <div class="admin-modal-box">
+            <h4 id="deleteHeading">SİLME ONAYI</h4>
+            <p id="deleteText"></p>
+            <div class="modal-actions">
+                <button type="button" class="admin-btn admin-btn-ghost" id="deleteCancel">VAZGEÇ</button>
+                <button type="button" class="admin-btn admin-btn-danger" id="deleteConfirm">EVET, SİL</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/admin-team.js"></script>
+</body>
+</html>

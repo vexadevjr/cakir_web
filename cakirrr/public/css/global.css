@@ -1,0 +1,442 @@
+/* ==========================================================================
+   1. GENEL SIFIRLAMA (fontlar HTML içindeki <link> ile yüklenir)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: #1a1c1e; /* Şirket antrasit siyahı */
+    color: #e3e5e8; 
+    font-family: 'Rajdhani', sans-serif; /* Düz metin fontu */
+    overflow-x: hidden;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* ==========================================================================
+   2. ORTAK BÖLÜM (SECTION) TASARIMLARI
+   ========================================================================== */
+.content-section {
+    padding: 100px 10% 80px 10%;
+    text-align: center;
+}
+
+.content-section h2 {
+    font-family: 'Orbitron', sans-serif; /* Keskin endüstriyel başlıklar */
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.content-section h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #5a626c; /* Logodaki mat metal rengi şerit */
+    margin: 12px auto 0 auto;
+}
+
+/* ==========================================================================
+   3. GİRİŞ ALANI (HERO SECTION) ANA TASARIMI
+   ========================================================================== */
+.hero-section {
+    min-height: 100vh; /* Ekranı tam kaplaması için */
+    position: relative; /* Şirket galerisini sabitlemek için */
+    background: linear-gradient(
+        to bottom, 
+        rgba(26, 28, 30, 0.85) 0%,   
+        rgba(26, 28, 30, 0.70) 50%,  
+        #1a1c1e 100%                 
+    ), 
+    url('../images/cakir_banner1.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 0;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.hero-profile-action {
+    position: relative;
+    z-index: 999;
+    margin-bottom: 15px;
+}
+
+/* Metalik şirket başlığı */
+.metallic-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.8rem; 
+    font-weight: 900; 
+    text-transform: uppercase;
+    letter-spacing: 8px; 
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    
+    background: linear-gradient(
+        145deg, 
+        #0f1011 0%, 
+        #5a626c 25%, 
+        #ffffff 45%, 
+        #1a1c1e 50%, 
+        #ffffff 55%, 
+        #5a626c 75%, 
+        #0f1011 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.95)) 
+            drop-shadow(3px 3px 0px #000000)             
+            drop-shadow(-1px -1px 0px rgba(255, 255, 255, 0.7));
+    
+    animation: chromeShine 6s ease-in-out infinite alternate;
+}
+
+@keyframes chromeShine {
+    0% { background-position: 0% center; }
+    100% { background-position: 100% center; }
+}
+
+/* Alt başlık */
+.hero-subtext {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem; 
+    color: #cbd5e1; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 3px; 
+    margin-bottom: 40px;
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9), 
+                 0px 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Şirket profili butonu */
+.btn-more {
+    font-family: 'Orbitron', sans-serif;
+    border: 2px solid #5a626c;
+    background: transparent;
+    color: #ffffff;
+    padding: 14px 38px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 0px; 
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    cursor: pointer; 
+    display: inline-block;
+    position: relative;
+    z-index: 10;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-more:hover {
+    border-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   4. HUD TARZI ALT BAĞLANTI PANELİ BUTTONLARI
+   ========================================================================== */
+.hero-links-panel {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 5;
+}
+
+.panel-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #9aa1a9;
+    background-color: rgba(15, 16, 17, 0.85); 
+    border: 1px solid #282b30; 
+    padding: 14px 28px;
+    border-radius: 0px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+.panel-icon {
+    width: 16px;
+    height: auto;
+    display: inline-block;
+}
+
+.discord-badge:hover {
+    color: #ffffff;
+    background-color: #5865F2; 
+    border-color: #5865F2;
+    box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+    transform: translateY(-2px);
+}
+
+.vtc-badge:hover {
+    color: #1a1c1e;
+    background-color: #ffffff; 
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   5. KATLANABİLİR ŞİRKET GALERİSİ SOL PANELİ
+   ========================================================================== */
+.hero-left-panel {
+    position: absolute;
+    left: 4%; 
+    top: 50%;
+    transform: translateY(-50%); 
+    width: 290px; 
+    min-height: 480px; 
+    background-color: rgba(15, 16, 17, 0.85); 
+    border-left: 3px solid #5a626c; 
+    border-top: 1px solid #282b30;
+    border-right: 1px solid #282b30;
+    border-bottom: 1px solid #282b30;
+    padding: 30px 24px; 
+    text-align: left;
+    z-index: 3;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+.hero-left-panel.panel-hidden {
+    left: -350px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.panel-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #5a626c;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.panel-close-btn:hover { color: #ffffff; }
+
+.hero-left-panel .panel-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #282b30;
+    padding-bottom: 10px;
+}
+
+.hero-left-panel .panel-desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #cbd5e1; 
+    line-height: 1.6;
+    letter-spacing: 0.4px;
+    margin-bottom: 25px;
+}
+
+.panel-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.gallery-preview-box {
+    width: 100%;
+    height: 65px;
+    background-image: url('../images/cakir_banner1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid #282b30;
+    transition: border-color 0.2s ease;
+}
+.gallery-preview-box:hover { border-color: #ffffff; }
+
+.panel-gallery-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    text-align: center;
+    border: 1px solid #5a626c;
+    padding: 12px 0;
+    width: 100%;
+    margin-top: auto; 
+    transition: all 0.2s ease;
+}
+.panel-gallery-btn:hover {
+    background-color: #ffffff;
+    color: #1a1c1e;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.panel-open-btn {
+    position: absolute;
+    left: -80px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(15, 16, 17, 0.92);
+    border: 1px solid #282b30;
+    border-left: 3px solid #5a626c;
+    padding: 22px 10px;
+    cursor: pointer;
+    z-index: 4;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.panel-open-btn.btn-visible { left: 0; }
+.panel-open-btn .open-arrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #ffffff;
+}
+.panel-open-btn .open-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #9aa1a9;
+    letter-spacing: 2px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   6. MOBİL VE TABLET UYUMLULUĞU
+   ========================================================================== */
+@media (max-width: 1100px) {
+    /* Galeri paneli içeriğin üzerine binmesin diye akışa alınır */
+    .hero-section {
+        flex-direction: column;
+        justify-content: center;
+        gap: 40px;
+        padding: 110px 20px 60px;
+    }
+
+    .hero-content { order: -1; }
+
+    .hero-left-panel {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        max-width: 420px;
+        min-height: 0;
+    }
+
+    .hero-left-panel.panel-hidden {
+        display: none;
+    }
+
+    .panel-open-btn {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        flex-direction: row;
+        padding: 12px 22px;
+        display: none;
+    }
+
+    .panel-open-btn.btn-visible { display: flex; left: auto; }
+
+    .panel-open-btn .open-text {
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .metallic-text {
+        font-size: clamp(1.9rem, 9vw, 3rem);
+        letter-spacing: clamp(2px, 1.5vw, 6px);
+    }
+
+    .hero-subtext {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+
+    .hero-links-panel {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .panel-btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+    }
+
+    .content-section { padding: 70px 6% 60px; }
+    .content-section h2 { font-size: 1.5rem; letter-spacing: 2px; }
+}
