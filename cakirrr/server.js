@@ -15,6 +15,18 @@ const { seedDefaults, seedTeam } = require('./scripts/seed');
 const app = express();
 const publicDir = path.join(__dirname, 'public');
 
+app.set('trust proxy', true);
+
+app.use((req, res, next) => {
+    let userIp = req.headers['x-forwarded-for'] || req.ip;
+    
+    if (userIp && userIp.includes(',')) {
+        userIp = userIp.split(',')[0].trim();
+    }
+    console.log(`[ZİYARETÇİ IP] Zaman: ${new Date().toISOString()} - IP: ${userIp} - Sayfa: ${req.originalUrl}`);
+    next();
+});
+
 app.disable('x-powered-by');
 if (config.trustProxy) app.set('trust proxy', config.trustProxy);
 
