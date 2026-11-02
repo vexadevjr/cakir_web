@@ -17,7 +17,11 @@ const publicDir = path.join(__dirname, 'public');
 app.set('trust proxy', true);
 
 app.use((req, res, next) => {
-    const userIp = req.ip || req.headers['x-forwarded-for'];
+    let userIp = req.headers['x-forwarded-for'] || req.ip;
+    
+    if (userIp && userIp.includes(',')) {
+        userIp = userIp.split(',')[0].trim();
+    }
     console.log(`[ZİYARETÇİ IP] Zaman: ${new Date().toISOString()} - IP: ${userIp} - Sayfa: ${req.originalUrl}`);
     next();
 });
