@@ -4,7 +4,7 @@ const { Client, GatewayIntentBits, Events } = require('discord.js');
 const config = require('../config');
 const { logError } = require('../utils/redact');
 
-const RECOUNT_DELAY_MS = 3000; // Çok sayıda olay gelirse sayım tek seferde yapılır
+const RECOUNT_DELAY_MS = 1000; // Çok sayıda olay gelirse sayım tek seferde yapılır
 const RETRY_MS = 10 * 60 * 1000; // Bağlantı kurulamazsa 10 dakikada bir yeniden denenir
 
 let client = null;
