@@ -7,6 +7,8 @@
     var visorTitle = document.getElementById("visorTargetTitle");
     var visorDesc = document.getElementById("visorTargetDesc");
     var items = [];
+    // Çeviri motoru yoksa metin olduğu gibi kullanılır
+    function tr(text) { return window.I18N ? window.I18N.t(text) : text; }
 
     function showState(text) {
         grid.textContent = "";
@@ -38,7 +40,9 @@
 
             var meta = document.createElement("span");
             meta.className = "matrix-meta";
-            meta.textContent = "FOTO #" + String(index + 1).padStart(2, "0");
+            // Ayrı metin düğümleri: "FOTO" çevrilir, numara olduğu gibi kalır
+            meta.appendChild(document.createTextNode("FOTO"));
+            meta.appendChild(document.createTextNode(" #" + String(index + 1).padStart(2, "0")));
 
             info.appendChild(title);
             info.appendChild(meta);
@@ -52,7 +56,7 @@
         var item = items[index];
         if (!item) return;
         visorImg.src = item.url;
-        visorImg.alt = item.title;
+        visorImg.alt = tr(item.title);
         visorTitle.textContent = item.title;
         visorDesc.textContent = item.description || DEFAULT_DESC;
         visor.classList.add("visor-active");

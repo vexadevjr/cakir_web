@@ -61,7 +61,9 @@ body { padding-top: 75px; background-color: #0c0d0e; }
 .legal-toc li { margin-bottom: 6px; }
 .legal-toc a:hover { color: #ffffff; }
 
-.legal-section { margin-bottom: 44px; scroll-margin-top: 95px; }
+.legal-wrapper { counter-reset: legal-sec; }
+.legal-section { margin-bottom: 44px; scroll-margin-top: 95px; counter-increment: legal-sec; }
+.legal-section h2::before { content: counter(legal-sec) ". "; }
 
 .legal-section h2 {
     margin-bottom: 14px;

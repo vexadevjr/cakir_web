@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/sections.css">
     <link rel="stylesheet" href="../css/legal.css">
+    <script src="../js/i18n-boot.js"></script>
 </head>
 <body>
 
@@ -44,108 +45,129 @@
         <nav class="legal-toc" aria-label="İçindekiler">
             <p>İÇİNDEKİLER</p>
             <ol>
-                <li><a href="#sorumlu">Veri Sorumlusu</a></li>
-                <li><a href="#veriler">İşlenen Veriler ve Amaçlar</a></li>
-                <li><a href="#cerezler">Çerezler ve Yerel Depolama</a></li>
-                <li><a href="#ucuncu">Üçüncü Taraf Hizmetler</a></li>
-                <li><a href="#aktarim">Verilerin Aktarılması</a></li>
-                <li><a href="#saklama">Saklama Süresi</a></li>
-                <li><a href="#guvenlik">Güvenlik Tedbirleri</a></li>
-                <li><a href="#haklar">KVKK Kapsamındaki Haklarınız</a></li>
-                <li><a href="#basvuru">Başvuru ve İletişim</a></li>
-                <li><a href="#degisiklik">Politikadaki Değişiklikler</a></li>
+                <li><a href="#s1" data-i18n-html="priv.s1.t">Veri Sorumlusu</a></li>
+                <li><a href="#s2" data-i18n-html="priv.s2.t">İşlenen Veriler ve Amaçlar</a></li>
+                <li><a href="#s3" data-i18n-html="priv.s3.t">Çerezler ve Yerel Depolama</a></li>
+                <li><a href="#s4" data-i18n-html="priv.s4.t">Üçüncü Taraf Hizmetler</a></li>
+                <li><a href="#s5" data-i18n-html="priv.s5.t">Verilerin Aktarılması</a></li>
+                <li><a href="#s6" data-i18n-html="priv.s6.t">Saklama Süresi</a></li>
+                <li><a href="#s7" data-i18n-html="priv.s7.t">Güvenlik Tedbirleri</a></li>
+                <li><a href="#s8" data-i18n-html="priv.s8.t">KVKK Kapsamındaki Haklarınız</a></li>
+                <li><a href="#s9" data-i18n-html="priv.s9.t">Başvuru ve İletişim</a></li>
+                <li><a href="#s10" data-i18n-html="priv.s10.t">Politikadaki Değişiklikler</a></li>
             </ol>
         </nav>
 
-        <section class="legal-section" id="sorumlu">
-            <h2>1. Veri Sorumlusu</h2>
-            <p>Bu internet sitesi, TruckersMP üzerinde faaliyet gösteren sanal taşımacılık topluluğu <strong>Çakır Company</strong> tarafından işletilmektedir. 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) kapsamında veri sorumlusu Çakır Company yönetimidir.</p>
-            <p>Bu metin, KVKK’nın 10. maddesi uyarınca aydınlatma yükümlülüğünü yerine getirmek ve sitemizde verilerinize nasıl davrandığımızı açıkça anlatmak amacıyla hazırlanmıştır.</p>
+        <section class="legal-section" id="s1">
+            <h2 data-i18n-html="priv.s1.t">Veri Sorumlusu</h2>
+            <p data-i18n-html="priv.s1.b1">Bu internet sitesi, TruckersMP üzerinde faaliyet gösteren sanal taşımacılık topluluğu <strong>Çakır Company</strong> tarafından işletilmektedir. 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) kapsamında veri sorumlusu Çakır Company yönetimidir.</p>
+            <p data-i18n-html="priv.s1.b2">Bu metin, KVKK’nın 10. maddesi uyarınca aydınlatma yükümlülüğünü yerine getirmek ve sitemizde verilerinize nasıl davrandığımızı açıkça anlatmak amacıyla hazırlanmıştır.</p>
         </section>
 
-        <section class="legal-section" id="veriler">
-            <h2>2. İşlenen Veriler ve Amaçlar</h2>
-            <p>Sitemizde kayıt, üyelik, iletişim formu, yorum veya ödeme alanı bulunmamaktadır. Ziyaretçilerden kimlik, iletişim veya finansal bilgi talep etmiyoruz. İşlenen veriler aşağıda özetlenmiştir.</p>
+        <section class="legal-section" id="s2">
+            <h2 data-i18n-html="priv.s2.t">İşlenen Veriler ve Amaçlar</h2>
+            <p data-i18n-html="priv.s2.b1">Sitemizde kayıt, üyelik, iletişim formu, yorum veya ödeme alanı bulunmamaktadır. Ziyaretçilerden kimlik, iletişim veya finansal bilgi talep etmiyoruz. İşlenen veriler aşağıda özetlenmiştir.</p>
             <div class="legal-table-wrap">
                 <table class="legal-table">
-                    <thead><tr><th>VERİ</th><th>AMAÇ</th><th>HUKUKİ SEBEP</th></tr></thead>
+                    <thead><tr>
+                        <th data-i18n-html="priv.s2.b2.h0">VERİ</th>
+                        <th data-i18n-html="priv.s2.b2.h1">AMAÇ</th>
+                        <th data-i18n-html="priv.s2.b2.h2">HUKUKİ SEBEP</th>
+                    </tr></thead>
                     <tbody>
-                        <tr><td><strong>Bağlantı bilgileri</strong> (IP adresi, tarayıcı türü, erişim zamanı)</td><td>Sitenin sunulması, teknik güvenliğin sağlanması, kötüye kullanımın ve aşırı isteklerin sınırlanması</td><td>Meşru menfaat (KVKK m.5/2-f); hukuki yükümlülük (m.5/2-ç)</td></tr>
-                        <tr><td><strong>Yönetim kadrosu bilgileri</strong> (görünen ad, rütbe, Discord profil fotoğrafı)</td><td>Yönetim kadrosunun sitede tanıtılması</td><td>İlgili kişinin açık rızası (m.5/1)</td></tr>
-                        <tr><td><strong>Yönetici oturum verisi</strong> (yalnızca yetkili yöneticiler)</td><td>Yönetim paneline güvenli erişim</td><td>Meşru menfaat (m.5/2-f)</td></tr>
-                        <tr><td><strong>Discord topluluk rakamları</strong> (toplam üye, sürücü sayıları)</td><td>Topluluk bilgisinin paylaşılması. Yalnızca toplu sayılardır; kişisel veri içermez.</td><td>Kişisel veri işlenmemektedir</td></tr>
+                        <tr>
+                            <td data-i18n-html="priv.s2.b2.r0c0"><strong>Bağlantı bilgileri</strong> (IP adresi, tarayıcı türü, erişim zamanı)</td>
+                            <td data-i18n-html="priv.s2.b2.r0c1">Sitenin sunulması, teknik güvenliğin sağlanması, kötüye kullanımın ve aşırı isteklerin sınırlanması</td>
+                            <td data-i18n-html="priv.s2.b2.r0c2">Meşru menfaat (KVKK m.5/2-f); hukuki yükümlülük (m.5/2-ç)</td>
+                        </tr>
+                        <tr>
+                            <td data-i18n-html="priv.s2.b2.r1c0"><strong>Yönetim kadrosu bilgileri</strong> (görünen ad, rütbe, Discord profil fotoğrafı)</td>
+                            <td data-i18n-html="priv.s2.b2.r1c1">Yönetim kadrosunun sitede tanıtılması</td>
+                            <td data-i18n-html="priv.s2.b2.r1c2">İlgili kişinin açık rızası (m.5/1)</td>
+                        </tr>
+                        <tr>
+                            <td data-i18n-html="priv.s2.b2.r2c0"><strong>Yönetici oturum verisi</strong> (yalnızca yetkili yöneticiler)</td>
+                            <td data-i18n-html="priv.s2.b2.r2c1">Yönetim paneline güvenli erişim</td>
+                            <td data-i18n-html="priv.s2.b2.r2c2">Meşru menfaat (m.5/2-f)</td>
+                        </tr>
+                        <tr>
+                            <td data-i18n-html="priv.s2.b2.r3c0"><strong>Discord topluluk rakamları</strong> (toplam üye, sürücü ve çevrimiçi sürücü sayıları)</td>
+                            <td data-i18n-html="priv.s2.b2.r3c1">Topluluk bilgisinin paylaşılması. Rakamları hesaplamak için Discord botumuz üyelerin rol ve çevrimiçi durumunu yalnızca geçici olarak bellekte işler; yalnızca toplu sayı yayımlanır, bireysel bilgi saklanmaz veya paylaşılmaz.</td>
+                            <td data-i18n-html="priv.s2.b2.r3c2">Meşru menfaat (m.5/2-f)</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            <p>Galeride yer alan görseller oyun içinden alınmış ekran görüntüleridir. Görselde oyun içi kullanıcı adı gibi bilgiler görünüyorsa ilgili kişi, kaldırılmasını talep edebilir (bkz. Bölüm 8).</p>
+            <p data-i18n-html="priv.s2.b3">Galeride yer alan görseller oyun içinden alınmış ekran görüntüleridir. Görselde oyun içi kullanıcı adı gibi bilgiler görünüyorsa ilgili kişi, kaldırılmasını talep edebilir (bkz. Bölüm 8).</p>
         </section>
 
-        <section class="legal-section" id="cerezler">
-            <h2>3. Çerezler ve Yerel Depolama</h2>
-            <p>Sitemiz ziyaretçilere <strong>çerez bırakmaz</strong>; analiz, reklam veya izleme amaçlı hiçbir araç kullanmaz. Tarayıcınızın yerel depolama alanına da veri yazılmaz.</p>
-            <p>Yalnızca yönetim paneline giriş yapan yetkili yöneticiler için, oturumu sürdürmek amacıyla zorunlu, <em>httpOnly</em> ve <em>SameSite=Strict</em> özellikli bir oturum çerezi kullanılır. Bu çerez oturum sona erdiğinde veya çıkış yapıldığında geçersiz hale gelir. Zorunlu olduğundan ayrı bir onay gerektirmez.</p>
+        <section class="legal-section" id="s3">
+            <h2 data-i18n-html="priv.s3.t">Çerezler ve Yerel Depolama</h2>
+            <p data-i18n-html="priv.s3.b1">Sitemiz ziyaretçilere <strong>çerez bırakmaz</strong>; analiz, reklam veya izleme amaçlı hiçbir araç kullanmaz.</p>
+            <p data-i18n-html="priv.s3.b2">Dil seçiminizi hatırlamak için tarayıcınızın yerel depolama alanına yalnızca seçtiğiniz dil kodunu (örneğin “de”) kaydederiz. Bu bilgi cihazınızda kalır, sunucumuza gönderilmez ve tarayıcı verilerinizi sildiğinizde kaldırılır.</p>
+            <p data-i18n-html="priv.s3.b3">Yalnızca yönetim paneline giriş yapan yetkili yöneticiler için, oturumu sürdürmek amacıyla zorunlu, <em>httpOnly</em> ve <em>SameSite=Strict</em> özellikli bir oturum çerezi kullanılır. Bu çerez oturum sona erdiğinde veya çıkış yapıldığında geçersiz hale gelir. Zorunlu olduğundan ayrı bir onay gerektirmez.</p>
         </section>
 
-        <section class="legal-section" id="ucuncu">
-            <h2>4. Üçüncü Taraf Hizmetler</h2>
-            <p>Sitemizin çalışması için aşağıdaki dış hizmetlerle teknik bağlantı kurulur. Bu hizmetler sayfayı görüntülediğinizde tarayıcınızdan doğrudan IP adresinizi alabilir ve kendi gizlilik politikalarına tabidir.</p>
+        <section class="legal-section" id="s4">
+            <h2 data-i18n-html="priv.s4.t">Üçüncü Taraf Hizmetler</h2>
+            <p data-i18n-html="priv.s4.b1">Sitemizin çalışması için aşağıdaki dış hizmetlerle teknik bağlantı kurulur. Bu hizmetler sayfayı görüntülediğinizde tarayıcınızdan doğrudan IP adresinizi alabilir ve kendi gizlilik politikalarına tabidir.</p>
             <ul>
-                <li><strong>Google Fonts</strong> (fonts.googleapis.com, fonts.gstatic.com): sitede kullanılan yazı tiplerinin yüklenmesi.</li>
-                <li><strong>Discord</strong> (cdn.discordapp.com): yönetim kadrosunun profil fotoğraflarının gösterilmesi. Discord sunucu rakamları ise sitemizin sunucusu tarafından alınır; ziyaretçi tarayıcınız bu amaçla Discord’a bağlanmaz.</li>
-                <li><strong>Barındırma ve veritabanı sağlayıcıları</strong>: sitenin ve içeriklerinin saklandığı altyapı hizmetleri.</li>
-                <li><strong>Discord ve TruckersMP bağlantıları</strong>: bu bağlantılara tıkladığınızda ilgili platformların kendi politikaları geçerli olur.</li>
+                <li data-i18n-html="priv.s4.b2.1"><strong>Google Fonts</strong> (fonts.googleapis.com, fonts.gstatic.com): sitede kullanılan yazı tiplerinin yüklenmesi.</li>
+                <li data-i18n-html="priv.s4.b2.2"><strong>Discord</strong> (cdn.discordapp.com): yönetim kadrosunun profil fotoğraflarının gösterilmesi. Discord sunucu rakamları ise sitemizin sunucusu tarafından alınır; ziyaretçi tarayıcınız bu amaçla Discord’a bağlanmaz.</li>
+                <li data-i18n-html="priv.s4.b2.3"><strong>Barındırma ve veritabanı sağlayıcıları</strong>: sitenin ve içeriklerinin saklandığı altyapı hizmetleri.</li>
+                <li data-i18n-html="priv.s4.b2.4"><strong>Discord ve TruckersMP bağlantıları</strong>: bu bağlantılara tıkladığınızda ilgili platformların kendi politikaları geçerli olur.</li>
             </ul>
-            <p>Bu hizmetlerin sunucuları yurt dışında bulunabilir. Bu nedenle yukarıdaki teknik bağlantılar sırasında IP adresiniz yurt dışına aktarılabilir (KVKK m.9). Bu aktarım, siteyi görüntülemenizin teknik bir gereğidir.</p>
+            <p data-i18n-html="priv.s4.b3">Bu hizmetlerin sunucuları yurt dışında bulunabilir. Bu nedenle yukarıdaki teknik bağlantılar sırasında IP adresiniz yurt dışına aktarılabilir (KVKK m.9). Bu aktarım, siteyi görüntülemenizin teknik bir gereğidir.</p>
         </section>
 
-        <section class="legal-section" id="aktarim">
-            <h2>5. Verilerin Aktarılması</h2>
-            <p>Kişisel verileriniz üçüncü kişilere satılmaz, kiralanmaz veya pazarlama amacıyla paylaşılmaz. Yalnızca Bölüm 4’te belirtilen hizmet sağlayıcılara teknik zorunluluk kapsamında, ayrıca yasal bir talep olması halinde yetkili kamu kurum ve kuruluşlarına aktarım yapılabilir.</p>
+        <section class="legal-section" id="s5">
+            <h2 data-i18n-html="priv.s5.t">Verilerin Aktarılması</h2>
+            <p data-i18n-html="priv.s5.b1">Kişisel verileriniz üçüncü kişilere satılmaz, kiralanmaz veya pazarlama amacıyla paylaşılmaz. Yalnızca Bölüm 4’te belirtilen hizmet sağlayıcılara teknik zorunluluk kapsamında, ayrıca yasal bir talep olması halinde yetkili kamu kurum ve kuruluşlarına aktarım yapılabilir.</p>
         </section>
 
-        <section class="legal-section" id="saklama">
-            <h2>6. Saklama Süresi</h2>
-            <p>Yönetim kadrosu bilgileri, ilgili kişi görevde kaldığı sürece saklanır; görevden ayrılma veya talep halinde silinir.</p>
-            <p>Bağlantı kayıtları barındırma sağlayıcısının politikasına ve yasal sürelere göre tutulur. Hız sınırlama amacıyla uygulama belleğinde tutulan IP bilgisi kısa süre sonra otomatik olarak silinir.</p>
-            <p>Yönetici oturum kayıtları, oturum süresi dolduğunda veya çıkış yapıldığında silinir.</p>
+        <section class="legal-section" id="s6">
+            <h2 data-i18n-html="priv.s6.t">Saklama Süresi</h2>
+            <p data-i18n-html="priv.s6.b1">Yönetim kadrosu bilgileri, ilgili kişi görevde kaldığı sürece saklanır; görevden ayrılma veya talep halinde silinir.</p>
+            <p data-i18n-html="priv.s6.b2">Bağlantı kayıtları barındırma sağlayıcısının politikasına ve yasal sürelere göre tutulur. Hız sınırlama amacıyla uygulama belleğinde tutulan IP bilgisi kısa süre sonra otomatik olarak silinir.</p>
+            <p data-i18n-html="priv.s6.b3">Yönetici oturum kayıtları, oturum süresi dolduğunda veya çıkış yapıldığında silinir.</p>
         </section>
 
-        <section class="legal-section" id="guvenlik">
-            <h2>7. Güvenlik Tedbirleri</h2>
-            <p>Verilerinizin korunması için makul teknik ve idari tedbirler uygulanmaktadır:</p>
+        <section class="legal-section" id="s7">
+            <h2 data-i18n-html="priv.s7.t">Güvenlik Tedbirleri</h2>
+            <p data-i18n-html="priv.s7.b1">Verilerinizin korunması için makul teknik ve idari tedbirler uygulanmaktadır:</p>
             <ul>
-                <li>Bağlantıların HTTPS üzerinden şifreli yapılması</li>
-                <li>Yönetim paneline yalnızca yetkili kişilerin, oturum ve ek doğrulama (CSRF) korumasıyla erişebilmesi; hatalı giriş denemelerinin sınırlandırılması</li>
-                <li>Gizli anahtar ve parolaların kaynak koduna yazılmayıp ortam değişkenleriyle yönetilmesi</li>
-                <li>Güvenlik başlıkları ve içerik güvenlik politikasıyla zararlı kod çalıştırma risklerinin azaltılması</li>
-                <li>Yüklenen görsellerin tür ve boyut denetiminden geçirilmesi</li>
+                <li data-i18n-html="priv.s7.b2.1">Bağlantıların HTTPS üzerinden şifreli yapılması</li>
+                <li data-i18n-html="priv.s7.b2.2">Yönetim paneline yalnızca yetkili kişilerin, oturum ve ek doğrulama (CSRF) korumasıyla erişebilmesi; hatalı giriş denemelerinin sınırlandırılması</li>
+                <li data-i18n-html="priv.s7.b2.3">Gizli anahtar ve parolaların kaynak koduna yazılmayıp ortam değişkenleriyle yönetilmesi</li>
+                <li data-i18n-html="priv.s7.b2.4">Güvenlik başlıkları ve içerik güvenlik politikasıyla zararlı kod çalıştırma risklerinin azaltılması</li>
+                <li data-i18n-html="priv.s7.b2.5">Yüklenen görsellerin tür ve boyut denetiminden geçirilmesi</li>
             </ul>
-            <p>Buna rağmen internet üzerinden hiçbir iletimin tamamen risksiz olmadığını hatırlatırız.</p>
+            <p data-i18n-html="priv.s7.b3">Buna rağmen internet üzerinden hiçbir iletimin tamamen risksiz olmadığını hatırlatırız.</p>
         </section>
 
-        <section class="legal-section" id="haklar">
-            <h2>8. KVKK Kapsamındaki Haklarınız</h2>
-            <p>KVKK’nın 11. maddesi uyarınca veri sorumlusuna başvurarak şu haklarınızı kullanabilirsiniz:</p>
+        <section class="legal-section" id="s8">
+            <h2 data-i18n-html="priv.s8.t">KVKK Kapsamındaki Haklarınız</h2>
+            <p data-i18n-html="priv.s8.b1">KVKK’nın 11. maddesi uyarınca veri sorumlusuna başvurarak şu haklarınızı kullanabilirsiniz:</p>
             <ul>
-                <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme ve işlenmişse buna ilişkin bilgi talep etme</li>
-                <li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
-                <li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme</li>
-                <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>
-                <li>KVKK’da öngörülen şartlar çerçevesinde silinmesini veya yok edilmesini isteme ve bu işlemlerin aktarıldığı üçüncü kişilere bildirilmesini isteme</li>
-                <li>İşlenen verilerin münhasıran otomatik sistemlerle analiz edilmesi suretiyle aleyhinize bir sonuç doğmasına itiraz etme</li>
-                <li>Kanuna aykırı işlenmesi sebebiyle zarara uğramanız halinde zararın giderilmesini talep etme</li>
+                <li data-i18n-html="priv.s8.b2.1">Kişisel verilerinizin işlenip işlenmediğini öğrenme ve işlenmişse buna ilişkin bilgi talep etme</li>
+                <li data-i18n-html="priv.s8.b2.2">İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
+                <li data-i18n-html="priv.s8.b2.3">Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme</li>
+                <li data-i18n-html="priv.s8.b2.4">Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>
+                <li data-i18n-html="priv.s8.b2.5">KVKK’da öngörülen şartlar çerçevesinde silinmesini veya yok edilmesini isteme ve bu işlemlerin aktarıldığı üçüncü kişilere bildirilmesini isteme</li>
+                <li data-i18n-html="priv.s8.b2.6">İşlenen verilerin münhasıran otomatik sistemlerle analiz edilmesi suretiyle aleyhinize bir sonuç doğmasına itiraz etme</li>
+                <li data-i18n-html="priv.s8.b2.7">Kanuna aykırı işlenmesi sebebiyle zarara uğramanız halinde zararın giderilmesini talep etme</li>
             </ul>
         </section>
 
-        <section class="legal-section" id="basvuru">
-            <h2>9. Başvuru ve İletişim</h2>
-            <p>Haklarınıza ilişkin taleplerinizi, kimliğinizi tespit edecek bilgilerle birlikte <a href="https://discord.com/invite/cakircompany" target="_blank" rel="noopener noreferrer">Discord sunucumuz</a> üzerinden yönetim ekibine yazılı olarak iletebilirsiniz. Başvurular, niteliğine göre en geç otuz gün içinde sonuçlandırılır.</p>
-            <p>Başvurunuzun yanıtsız kalması veya yetersiz bulunması halinde Kişisel Verileri Koruma Kurulu’na şikâyette bulunma hakkınız saklıdır.</p>
+        <section class="legal-section" id="s9">
+            <h2 data-i18n-html="priv.s9.t">Başvuru ve İletişim</h2>
+            <p data-i18n-html="priv.s9.b1">Haklarınıza ilişkin taleplerinizi, kimliğinizi tespit edecek bilgilerle birlikte <a href="https://discord.com/invite/cakircompany" target="_blank" rel="noopener noreferrer">Discord sunucumuz</a> üzerinden yönetim ekibine yazılı olarak iletebilirsiniz. Başvurular, niteliğine göre en geç otuz gün içinde sonuçlandırılır.</p>
+            <p data-i18n-html="priv.s9.b2">Başvurunuzun yanıtsız kalması veya yetersiz bulunması halinde Kişisel Verileri Koruma Kurulu’na şikâyette bulunma hakkınız saklıdır.</p>
         </section>
 
-        <section class="legal-section" id="degisiklik">
-            <h2>10. Politikadaki Değişiklikler</h2>
-            <p>Bu politika, mevzuattaki veya sitedeki değişikliklere bağlı olarak güncellenebilir. Güncel sürüm her zaman bu sayfada yayımlanır; sayfanın üst kısmındaki tarih son güncellemeyi gösterir.</p>
+        <section class="legal-section" id="s10">
+            <h2 data-i18n-html="priv.s10.t">Politikadaki Değişiklikler</h2>
+            <p data-i18n-html="priv.s10.b1">Bu politika, mevzuattaki veya sitedeki değişikliklere bağlı olarak güncellenebilir. Güncel sürüm her zaman bu sayfada yayımlanır; sayfanın üst kısmındaki tarih son güncellemeyi gösterir.</p>
         </section>
 
     </main>
@@ -162,6 +184,7 @@
         </div>
     </footer>
 
+    <script src="../js/i18n.js"></script>
     <script src="../js/nav.js"></script>
 </body>
 </html>

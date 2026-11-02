@@ -98,7 +98,7 @@ async function fetchGuildStats() {
   return {
     totalMembers: Number(guild.approximate_member_count) || 0,
     totalDrivers: Number(counts[config.discordDriverRoleId]) || 0,
-    activeDrivers: config.discordActiveRoleId ? Number(counts[config.discordActiveRoleId]) || 0 : null,
+    activeDrivers: null, // Çevrimiçi bilgisi yalnızca canlı gateway bağlantısıyla alınabilir
   };
 }
 

@@ -53,7 +53,6 @@ module.exports = {
   discordBotToken: (process.env.DISCORD_BOT_TOKEN || '').trim(),
   discordGuildId: optionalId('DISCORD_GUILD_ID'),
   discordDriverRoleId: optionalId('DISCORD_DRIVER_ROLE_ID'),
-  discordActiveRoleId: optionalId('DISCORD_ACTIVE_ROLE_ID'),
   seedDemo: process.env.SEED_DEMO !== 'false',
   maxUploadBytes: 8 * 1024 * 1024,
 };

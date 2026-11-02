@@ -44,8 +44,9 @@
                     var box = document.createElement("a");
                     box.className = "gallery-preview-box";
                     box.href = "pages/galeri.html";
-                    box.title = item.title;
-                    box.setAttribute("aria-label", item.title);
+                    var label = window.I18N ? window.I18N.t(item.title) : item.title;
+                    box.title = label;
+                    box.setAttribute("aria-label", label);
                     box.style.backgroundImage = "url('" + item.thumb + "')";
                     grid.appendChild(box);
                 });
@@ -57,8 +58,25 @@
     var statList = document.getElementById("statList");
     var statNote = document.getElementById("statNote");
 
+    var lastStats = null;
+
     function formatNumber(n) {
-        return Number(n).toLocaleString("tr-TR");
+        var locale = window.I18N ? window.I18N.locale : "tr-TR";
+        return Number(n).toLocaleString(locale);
+    }
+
+    function renderStats() {
+        if (!statList || !lastStats) return;
+        ["activeDrivers", "totalDrivers", "totalMembers"].forEach(function (key) {
+            var node = statList.querySelector('[data-stat="' + key + '"]');
+            if (!node) return;
+            if (lastStats[key] === null || lastStats[key] === undefined) {
+                // Çevrimiçi bilgisi alınamıyorsa (canlı bağlantı yoksa) satır gizlenir
+                node.parentNode.hidden = true;
+            } else {
+                node.textContent = formatNumber(lastStats[key]);
+            }
+        });
     }
 
     if (statList) {
@@ -69,19 +87,14 @@
                     statNote.textContent = "Rakamlar şu an alınamıyor.";
                     return;
                 }
-                ["activeDrivers", "totalDrivers", "totalMembers"].forEach(function (key) {
-                    var node = statList.querySelector('[data-stat="' + key + '"]');
-                    if (!node) return;
-                    if (stats[key] === null || stats[key] === undefined) {
-                        // Aktif sürücü rolü tanımlı değilse satır gizlenir
-                        node.parentNode.hidden = true;
-                    } else {
-                        node.textContent = formatNumber(stats[key]);
-                    }
-                });
+                lastStats = stats;
+                renderStats();
                 statNote.textContent = "Kaynak: Discord sunucumuz";
             })
             .catch(function () { statNote.textContent = "Rakamlar şu an alınamıyor."; });
+
+        // Dil değişince sayılar yeni dilin biçimiyle yazılır (örn. 1.234 / 1,234)
+        document.addEventListener("i18n:change", renderStats);
     }
 
     // ---------- Yönetim kadrosu ----------

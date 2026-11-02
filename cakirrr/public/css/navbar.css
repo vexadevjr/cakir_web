@@ -132,3 +132,97 @@
 @media (max-width: 380px) {
     .logo-title { display: none; }
 }
+
+/* ==========================================================================
+   DİL SEÇİCİ
+   ========================================================================== */
+html.i18n-pending body { visibility: hidden; }
+
+.lang-switch { position: relative; display: flex; align-items: center; }
+
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid #282b30;
+    color: #9aa1a9;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.lang-toggle:hover,
+.lang-toggle[aria-expanded="true"] { color: #ffffff; border-color: #5a626c; }
+
+.lang-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 150px;
+    background-color: #0f1011;
+    border: 1px solid #282b30;
+    border-top: 2px solid #ffffff;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 1200;
+}
+
+.lang-menu.is-open { opacity: 1; visibility: visible; transform: none; }
+
+.lang-menu button {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #1a1c1e;
+    color: #9aa1a9;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.lang-menu li:last-child button { border-bottom: none; }
+.lang-menu button:hover { background-color: #15171a; color: #ffffff; }
+.lang-menu button.is-active { color: #ffffff; box-shadow: inset 3px 0 0 #ffffff; }
+
+@media (max-width: 768px) {
+    /* Mobil menüde dil seçenekleri tek satırda gösterilir */
+    .nav-links.nav-open { max-height: 420px; }
+
+    .lang-switch { display: block; padding: 14px 8%; }
+    .lang-toggle { display: none; }
+
+    .lang-menu {
+        position: static;
+        display: flex;
+        gap: 8px;
+        min-width: 0;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .lang-menu li { flex: 1; }
+    .lang-menu button {
+        padding: 12px 6px;
+        text-align: center;
+        border: 1px solid #282b30;
+        font-size: 0.65rem;
+    }
+    .lang-menu button.is-active { border-color: #ffffff; box-shadow: none; }
+}
