@@ -3,6 +3,8 @@
 require('dotenv').config();
 
 const isProd = process.env.NODE_ENV === 'production';
+// Render otomatik olarak RENDER=true tanımlar; bu ortamda proxy arkasında çalışıldığı bilinir
+const onRender = Boolean(process.env.RENDER);
 
 function required(name) {
   const value = (process.env[name] || '').trim();
@@ -54,7 +56,9 @@ try {
 module.exports = {
   isProd,
   port: parseInt(process.env.PORT, 10) || 3000,
-  trustProxy: parseInt(process.env.TRUST_PROXY, 10) || 0,
+  trustProxy: parseInt(process.env.TRUST_PROXY, 10) || (onRender ? 1 : 0),
+  // Cloudflare'in eklediği CF-Connecting-IP yalnızca Cloudflare arkasında güvenilirdir (Render dahil); aksi halde taklit edilebilir
+  trustCfHeaders: process.env.TRUST_CF_HEADERS ? process.env.TRUST_CF_HEADERS === 'true' : onRender,
   mongoUri: required('MONGODB_URI'),
   adminUsername,
   adminPassword,

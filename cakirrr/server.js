@@ -9,6 +9,7 @@ const rateLimit = require('express-rate-limit');
 const config = require('./config');
 const { connectDB } = require('./config/db');
 const { logError } = require('./utils/redact');
+const { realIp } = require('./utils/ip');
 const stats = require('./services/stats');
 const { track, pageLimiter, PAGE_PATHS } = require('./middleware/tracker');
 const { COOKIE_NAME } = require('./middleware/auth');
@@ -19,6 +20,7 @@ const publicDir = path.join(__dirname, 'public');
 
 app.disable('x-powered-by');
 if (config.trustProxy) app.set('trust proxy', config.trustProxy);
+app.use(realIp);
 
 app.use(
   helmet({

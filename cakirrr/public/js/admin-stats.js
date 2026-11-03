@@ -5,6 +5,7 @@
     var SVG_NS = "http://www.w3.org/2000/svg";
     var state = { range: "week", data: null, visitors: [], timezone: "Europe/Istanbul" };
     var resizeTimer = null;
+    var activeTab = "media";
 
     function $(id) { return document.getElementById(id); }
     function core() { return window.cakirAdmin; }
@@ -69,16 +70,24 @@
             t.setAttribute("aria-selected", String(active));
         });
         document.querySelectorAll(".tab-panel").forEach(function (p) { p.hidden = p.getAttribute("data-panel") !== name; });
+        activeTab = name;
         if (name === "stats") loadOverview();
         if (name === "logs") { loadLogins(); loadVisitors(); }
     }
+
+    // Açık sekmedeki veri 15 saniyede bir kendiliğinden yenilenir (sekme görünürken ve oturum açıkken)
+    setInterval(function () {
+        if (document.hidden || $("dashBox").hidden) return;
+        if (activeTab === "logs") { loadLogins(true); loadVisitors(true); }
+        else if (activeTab === "stats") loadOverview(true);
+    }, 15000);
 
     document.querySelectorAll(".admin-tab").forEach(function (t) {
         t.addEventListener("click", function () { showTab(t.getAttribute("data-tab")); });
     });
 
     // ---------- İstatistikler ----------
-    function loadOverview() {
+    function loadOverview(silent) {
         core().api("/api/analytics/overview?range=" + state.range)
             .then(function (data) {
                 state.data = data;
@@ -88,7 +97,7 @@
                 renderTable(data);
                 $("statsNote").textContent = "Botlar ve yönetici gezintileri sayılmaz. Gün ve saat sınırları " + data.timezone + " saat dilimine göredir. Kayıtlar " + data.retentionDays + " gün saklanır; şu an " + nf(data.recordedVisits) + " kayıt var.";
             })
-            .catch(function (err) { core().toast(err.message, "error"); });
+            .catch(function (err) { if (silent !== true) core().toast(err.message, "error"); });
     }
 
     function renderCards(data) {
@@ -223,7 +232,7 @@
     // ---------- Giriş denemeleri ----------
     var REASONS = { success: ["BAŞARILI", "result-ok"], bad_credentials: ["HATALI BİLGİ", "result-fail"], rate_limited: ["ENGELLENDİ", "result-block"] };
 
-    function loadLogins() {
+    function loadLogins(silent) {
         var filter = $("loginFilter").value;
         core().api("/api/analytics/logins" + (filter ? "?result=" + filter : ""))
             .then(function (data) {
@@ -251,13 +260,13 @@
                     body.appendChild(tr);
                 });
             })
-            .catch(function (err) { core().toast(err.message, "error"); });
+            .catch(function (err) { if (silent !== true) core().toast(err.message, "error"); });
     }
 
-    $("loginFilter").addEventListener("change", loadLogins);
+    $("loginFilter").addEventListener("change", function () { loadLogins(); });
 
     // ---------- Ziyaretçi IP listesi ----------
-    function loadVisitors() {
+    function loadVisitors(silent) {
         var url = "/api/analytics/visitors?range=" + $("ipRange").value + ($("ipBots").checked ? "&bots=1" : "");
         core().api(url)
             .then(function (data) {
@@ -265,7 +274,7 @@
                 state.truncated = data.truncated;
                 renderVisitors();
             })
-            .catch(function (err) { core().toast(err.message, "error"); });
+            .catch(function (err) { if (silent !== true) core().toast(err.message, "error"); });
     }
 
     function renderVisitors() {
@@ -294,8 +303,8 @@
         });
     }
 
-    $("ipRange").addEventListener("change", loadVisitors);
-    $("ipBots").addEventListener("change", loadVisitors);
+    $("ipRange").addEventListener("change", function () { loadVisitors(); });
+    $("ipBots").addEventListener("change", function () { loadVisitors(); });
     $("ipSearch").addEventListener("input", renderVisitors);
 
     // Oturum açılınca medya sekmesiyle başlanır
