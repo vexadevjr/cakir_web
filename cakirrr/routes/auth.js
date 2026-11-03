@@ -37,11 +37,12 @@ const globalLoginLimiter = rateLimit({
   keyGenerator: () => 'login-global',
   standardHeaders: false,
   legacyHeaders: false,
-  handler: (req, res) => {
-    recordLogin(req, 'rate_limited');
-    res.status(429).json({ error: 'Giriş geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.' });
-  },
-});
+  handler: async (req, res) => {
+    await recordLogin(req, 'rate_limited');
+    res.status(429).json({
+        error: 'Giriş geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.'
+    });
+},
 
 router.post('/login', globalLoginLimiter, loginLimiter, async (req, res, next) => {
   try {
