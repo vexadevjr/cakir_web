@@ -22,11 +22,12 @@ const loginLimiter = rateLimit({
   skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
-  handler: (req, res) => {
-    recordLogin(req, 'rate_limited');
-    res.status(429).json({ error: 'Çok fazla başarısız deneme. Lütfen 15 dakika sonra tekrar deneyin.' });
-  },
-});
+  handler: async (req, res) => {
+    await recordLogin(req, 'rate_limited');
+    res.status(429).json({
+        error: 'Çok fazla başarısız deneme. Lütfen 15 dakika sonra tekrar deneyin.'
+    });
+},
 
 // 2) Saldırı birçok IP'den dağıtık yapılsa bile saatte en fazla 40 başarısız deneme
 const globalLoginLimiter = rateLimit({
