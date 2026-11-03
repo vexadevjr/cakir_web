@@ -15,6 +15,8 @@ const { COOKIE_NAME } = require('./middleware/auth');
 const { seedDefaults, seedTeam } = require('./scripts/seed');
 
 const app = express();
+app.set('trust proxy', true); // Bu satırı ekleyin
+
 const publicDir = path.join(__dirname, 'public');
 
 app.disable('x-powered-by');
