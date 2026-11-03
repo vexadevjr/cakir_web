@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const mongoose = require('mongoose');
 const config = require('../config');
 const Visit = require('../models/Visit');
 const LoginAttempt = require('../models/LoginAttempt');
@@ -102,8 +103,8 @@ router.get('/logins', async (req, res, next) => {
     const since7d = new Date(Date.now() - 7 * 24 * 3600 * 1000);
     const [items, ok24, failed24, topFailed] = await Promise.all([
       LoginAttempt.find(filter).sort({ createdAt: -1 }).limit(limit).lean(),
-      LoginAttempt.countDocuments({ success: true, createdAt: { $gte: since24h } }),
-      LoginAttempt.countDocuments({ success: false, createdAt: { $gte: since24h } }),
+      LoginAttempt.countDocuments({ success: true, createdAt: mongoose.trusted({ $gte: since24h }) }),
+      LoginAttempt.countDocuments({ success: false, createdAt: mongoose.trusted({ $gte: since24h }) }),
       LoginAttempt.aggregate([
         { $match: { success: false, createdAt: { $gte: since7d } } },
         { $group: { _id: '$ip', attempts: { $sum: 1 }, lastAt: { $max: '$createdAt' } } },
