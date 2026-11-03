@@ -13,9 +13,9 @@ const DEFAULTS = [
 ];
 
 const TEAM_DEFAULTS = [
-  { name: 'Çakır', role: 'FOUNDER / CEO', tone: 'ceo', fallbackAvatar: '/images/cakir_logo1.png' },
-  { name: 'Vexa', role: 'DEVELOPER', tone: 'dev', fallbackAvatar: '/images/vexa.png' },
-  { name: 'Lutzz', role: 'MANAGEMENT', tone: 'mgmt', fallbackAvatar: '/images/lutz.png' },
+  { name: 'Çakır', role: 'FOUNDER / CEO', color: '#ffffff', fallbackAvatar: '/images/cakir_logo1.png' },
+  { name: 'Vexa', role: 'DEVELOPER', color: '#ff3333', fallbackAvatar: '/images/vexa.png' },
+  { name: 'Lutzz', role: 'MANAGEMENT', color: '#5865f2', fallbackAvatar: '/images/lutz.png' },
 ];
 
 // Yönetim kadrosunu mevcut üçlüyle başlatır; yönetim panelinden Discord hesaplarına bağlanabilir

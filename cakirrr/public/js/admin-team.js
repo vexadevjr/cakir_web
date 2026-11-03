@@ -1,14 +1,62 @@
-// Yönetim paneli: yönetim kadrosu (Discord profilleri)
+// Yönetim paneli: yönetim kadrosu (Discord profilleri ve serbest renk)
 (function () {
     "use strict";
 
-    var TONE_LABELS = { ceo: "Kurucu", dev: "Geliştirici", mgmt: "Yönetim", staff: "Ekip" };
+    var PRESETS = [
+        { name: "Beyaz", value: "#ffffff" }, { name: "Gri", value: "#9aa1a9" }, { name: "Kırmızı", value: "#ff3333" },
+        { name: "Turuncu", value: "#ff8a3d" }, { name: "Altın", value: "#f5c542" }, { name: "Yeşil", value: "#3ddc84" },
+        { name: "Turkuaz", value: "#2dd4bf" }, { name: "Mavi", value: "#5865f2" }, { name: "Mor", value: "#a855f7" },
+        { name: "Pembe", value: "#ec4899" }
+    ];
+    var DEFAULT_COLOR = "#9aa1a9";
     var members = [];
     var editingId = null;
     var deletingMember = null;
 
     function $(id) { return document.getElementById(id); }
     function core() { return window.cakirAdmin; }
+    function isHex(v) { return /^#[0-9a-fA-F]{6}$/.test(v); }
+
+    // ---------- Renk alanı (seçici + kod + hazır renkler + canlı önizleme) ----------
+    function setupColorField(ids) {
+        var picker = $(ids.picker), hex = $(ids.hex), preview = $(ids.preview), swatches = $(ids.swatches);
+
+        function set(value, fromHexInput) {
+            value = String(value).toLowerCase();
+            if (!isHex(value)) return;
+            picker.value = value;
+            if (!fromHexInput) hex.value = value;
+            preview.setAttribute("data-color", value);
+            if (window.CakirTheme) window.CakirTheme.paint(preview.parentNode);
+            swatches.querySelectorAll(".swatch").forEach(function (b) {
+                b.classList.toggle("is-selected", b.getAttribute("data-value") === value);
+            });
+        }
+
+        PRESETS.forEach(function (p) {
+            var b = core().el("button", "swatch");
+            b.type = "button";
+            b.title = p.name;
+            b.setAttribute("aria-label", p.name);
+            b.setAttribute("data-value", p.value);
+            b.style.backgroundColor = p.value;
+            b.addEventListener("click", function () { set(p.value); });
+            swatches.appendChild(b);
+        });
+
+        picker.addEventListener("input", function () { set(picker.value); });
+        hex.addEventListener("input", function () {
+            var v = hex.value.trim();
+            if (v && v.charAt(0) !== "#") v = "#" + v;
+            if (isHex(v)) set(v, true);
+        });
+        hex.addEventListener("blur", function () { hex.value = picker.value; });
+
+        return { set: set, get: function () { return picker.value; } };
+    }
+
+    var addColor = null;
+    var editColor = null;
 
     function load() {
         core().api("/api/team/admin")
@@ -30,11 +78,13 @@
             return;
         }
         members.forEach(function (m, index) { list.appendChild(buildRow(m, index)); });
+        if (window.CakirTheme) window.CakirTheme.paint(list);
     }
 
     function buildRow(m, index) {
         var el = core().el;
         var row = el("div", "media-list-item");
+        row.setAttribute("data-color", m.color);
 
         var img = el("img", "team-avatar");
         img.alt = m.name;
@@ -45,8 +95,8 @@
         var details = el("div", "item-details");
         details.appendChild(el("div", "item-title", m.name));
         var meta = el("div", "item-meta");
-        meta.appendChild(el("span", "badge tone-" + m.tone, m.role));
-        meta.appendChild(el("span", "", TONE_LABELS[m.tone] || ""));
+        meta.appendChild(el("span", "badge member-badge", m.role));
+        meta.appendChild(el("span", "", m.color.toUpperCase()));
         meta.appendChild(el("span", "", m.discordId ? "Discord: " + (m.discordUsername || m.discordId) : "Discord bağlı değil"));
         details.appendChild(meta);
 
@@ -100,7 +150,7 @@
             discordId: $("teamDiscordId").value.trim(),
             name: $("teamName").value.trim(),
             role: $("teamRole").value.trim(),
-            tone: $("teamTone").value
+            color: addColor.get()
         };
         if (!body.role) return core().toast("Lütfen bir rütbe girin.", "error");
         if (!body.discordId && !body.name) return core().toast("Discord ID veya isim girin.", "error");
@@ -132,7 +182,7 @@
         editingId = id;
         $("teamEditName").value = m.name;
         $("teamEditRole").value = m.role;
-        $("teamEditTone").value = m.tone;
+        editColor.set(m.color);
         $("teamEditModal").hidden = false;
         $("teamEditName").focus();
     }
@@ -150,7 +200,7 @@
 
     $("teamEditSave").addEventListener("click", function () {
         var btn = $("teamEditSave");
-        var body = { name: $("teamEditName").value.trim(), role: $("teamEditRole").value.trim(), tone: $("teamEditTone").value };
+        var body = { name: $("teamEditName").value.trim(), role: $("teamEditRole").value.trim(), color: editColor.get() };
         if (!body.name || !body.role) return core().toast("İsim ve rütbe boş bırakılamaz.", "error");
         btn.disabled = true;
         core().api("/api/team/" + encodeURIComponent(editingId), { method: "PATCH", body: body })
@@ -161,7 +211,7 @@
 
     // ---------- Silme (iki adımlı onay) ----------
     function removeMember(m) {
-        // İlk tık düğmeyi "EMİN MİSİNİZ?" haline getirir; ikinci tık siler
+        // İlk tık uyarır; 5 sn içinde ikinci tık siler
         if (deletingMember !== m.id) {
             deletingMember = m.id;
             core().toast("“" + m.name + "” silinecek. Onaylamak için SİL düğmesine tekrar basın.", "error");
@@ -178,5 +228,13 @@
             .catch(function (err) { core().toast(err.message, "error"); });
     }
 
-    document.addEventListener("admin:ready", load);
+    document.addEventListener("admin:ready", function () {
+        // Renk alanları ilk açılışta bir kez kurulur (hazır renkler çizilir)
+        if (!addColor) {
+            addColor = setupColorField({ picker: "teamColor", hex: "teamColorHex", preview: "teamColorPreview", swatches: "teamSwatches" });
+            editColor = setupColorField({ picker: "teamEditColor", hex: "teamEditColorHex", preview: "teamEditPreview", swatches: "teamEditSwatches" });
+            addColor.set(DEFAULT_COLOR);
+        }
+        load();
+    });
 })();

@@ -1,4 +1,69 @@
 /* ==========================================================================
+   0. TEMA DEĞİŞKENLERİ (koyu varsayılan; açık tema [data-theme="light"] ile)
+   ========================================================================== */
+:root {
+    color-scheme: dark;
+    --bg-0: #0c0d0e;
+    --bg-1: #0f1011;
+    --bg-2: #15171a;
+    --bg-3: #1a1c1e;
+    --line: #282b30;
+    --line-soft: #1e2022;
+    --muted: #5a626c;
+    --muted-2: #3a3f45;
+    --text-0: #ffffff;
+    --text-2: #9aa1a9;
+    --text-3: #b8bfc7;
+    --text-4: #cbd5e1;
+    --text-body: #e3e5e8;
+
+    --glow-rgb: 255, 255, 255;
+    --panel-rgb: 15, 16, 17;
+    --bg0-rgb: 12, 13, 14;
+    --overlay-rgb: 10, 11, 12;
+    --hero-rgb: 26, 28, 30;
+    --shadow-k: 1;
+    --text-halo: rgba(0, 0, 0, 0.9);
+
+    --metal-edge: #0f1011;
+    --metal-mid: #5a626c;
+    --metal-hi: #ffffff;
+    --metal-seam: #1a1c1e;
+    --title-filter: drop-shadow(0 0 25px rgba(0, 0, 0, 0.95)) drop-shadow(3px 3px 0 #000000) drop-shadow(-1px -1px 0 rgba(255, 255, 255, 0.7));
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+    --bg-0: #f3f4f6;
+    --bg-1: #ffffff;
+    --bg-2: #eceef1;
+    --bg-3: #e8ebef;
+    --line: #d2d6dc;
+    --line-soft: #e2e5ea;
+    --muted: #6b737d;
+    --muted-2: #c3c8cf;
+    --text-0: #0f1114;
+    --text-2: #565e68;
+    --text-3: #444b54;
+    --text-4: #2f353c;
+    --text-body: #1f2328;
+
+    --glow-rgb: 15, 17, 20;
+    --panel-rgb: 255, 255, 255;
+    --bg0-rgb: 243, 244, 246;
+    --overlay-rgb: 226, 230, 236;
+    --hero-rgb: 236, 239, 243;
+    --shadow-k: 0.28;
+    --text-halo: rgba(255, 255, 255, 0.85);
+
+    --metal-edge: #c8cdd4;
+    --metal-mid: #7d858f;
+    --metal-hi: #14171b;
+    --metal-seam: #aeb4bc;
+    --title-filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.9)) drop-shadow(2px 2px 0 rgba(255, 255, 255, 0.9)) drop-shadow(-1px -1px 0 rgba(15, 17, 20, 0.3));
+}
+
+/* ==========================================================================
    1. GENEL SIFIRLAMA (fontlar HTML içindeki <link> ile yüklenir)
    ========================================================================== */
 * {
@@ -13,8 +78,8 @@ html {
 }
 
 body {
-    background-color: #1a1c1e; /* Şirket antrasit siyahı */
-    color: #e3e5e8; 
+    background-color: var(--bg-3); /* Şirket antrasit siyahı */
+    color: var(--text-body); 
     font-family: 'Rajdhani', sans-serif; /* Düz metin fontu */
     overflow-x: hidden;
     line-height: 1.5;
@@ -45,7 +110,7 @@ img {
 .content-section h2 {
     font-family: 'Orbitron', sans-serif; /* Keskin endüstriyel başlıklar */
     font-size: 2rem;
-    color: #ffffff;
+    color: var(--text-0);
     margin-bottom: 25px;
     font-weight: 700;
     text-transform: uppercase;
@@ -57,7 +122,7 @@ img {
     display: block;
     width: 40px;
     height: 2px;
-    background: #5a626c; /* Logodaki mat metal rengi şerit */
+    background: var(--muted); /* Logodaki mat metal rengi şerit */
     margin: 12px auto 0 auto;
 }
 
@@ -70,9 +135,9 @@ img {
     overflow: hidden; /* Ekran dışındaki kapalı paneller taşma yaratmasın */
     background: linear-gradient(
         to bottom, 
-        rgba(26, 28, 30, 0.85) 0%,   
-        rgba(26, 28, 30, 0.70) 50%,  
-        #1a1c1e 100%                 
+        rgba(var(--hero-rgb), 0.85) 0%,   
+        rgba(var(--hero-rgb), 0.70) 50%,  
+        var(--bg-3) 100%                 
     ), 
     url('../images/cakir_banner1.jpg') no-repeat center center/cover;
     display: flex;
@@ -81,7 +146,7 @@ img {
     text-align: center;
     padding: 0 20px;
     margin-top: 0;
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, calc(0.8 * var(--shadow-k)));
 }
 
 .hero-content {
@@ -111,21 +176,19 @@ img {
     
     background: linear-gradient(
         145deg, 
-        #0f1011 0%, 
-        #5a626c 25%, 
-        #ffffff 45%, 
-        #1a1c1e 50%, 
-        #ffffff 55%, 
-        #5a626c 75%, 
-        #0f1011 100%
+        var(--metal-edge) 0%, 
+        var(--metal-mid) 25%, 
+        var(--metal-hi) 45%, 
+        var(--metal-seam) 50%, 
+        var(--metal-hi) 55%, 
+        var(--metal-mid) 75%, 
+        var(--metal-edge) 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     
-    filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.95)) 
-            drop-shadow(3px 3px 0px #000000)             
-            drop-shadow(-1px -1px 0px rgba(255, 255, 255, 0.7));
+    filter: var(--title-filter);
     
     animation: chromeShine 6s ease-in-out infinite alternate;
 }
@@ -139,25 +202,25 @@ img {
 .hero-subtext {
     font-family: 'Orbitron', sans-serif;
     font-size: 1rem; 
-    color: #cbd5e1; 
+    color: var(--text-4); 
     font-weight: 700; 
     text-transform: uppercase;
     letter-spacing: 3px; 
     margin-bottom: 40px;
-    max-width: 660px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
     text-wrap: balance;
-    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9), 
-                 0px 4px 20px rgba(0, 0, 0, 0.6);
+    text-shadow: 0px 2px 8px var(--text-halo), 
+                 0px 4px 20px var(--text-halo);
 }
 
 /* Şirket profili butonu */
 .btn-more {
     font-family: 'Orbitron', sans-serif;
-    border: 2px solid #5a626c;
+    border: 2px solid var(--muted);
     background: transparent;
-    color: #ffffff;
+    color: var(--text-0);
     padding: 14px 38px;
     font-weight: 700;
     text-transform: uppercase;
@@ -172,9 +235,9 @@ img {
 }
 
 .btn-more:hover {
-    border-color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+    border-color: var(--text-0);
+    background-color: rgba(var(--glow-rgb), 0.05);
+    box-shadow: 0 0 15px rgba(var(--glow-rgb), 0.15);
 }
 
 /* ==========================================================================
@@ -195,9 +258,9 @@ img {
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #9aa1a9;
-    background-color: rgba(15, 16, 17, 0.85); 
-    border: 1px solid #282b30; 
+    color: var(--text-2);
+    background-color: rgba(var(--panel-rgb), 0.85); 
+    border: 1px solid var(--line); 
     padding: 14px 28px;
     border-radius: 0px; 
     display: inline-flex;
@@ -222,10 +285,10 @@ img {
 }
 
 .vtc-badge:hover {
-    color: #1a1c1e;
-    background-color: #ffffff; 
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    color: var(--bg-3);
+    background-color: var(--text-0); 
+    border-color: var(--text-0);
+    box-shadow: 0 0 20px rgba(var(--glow-rgb), 0.3);
     transform: translateY(-2px);
 }
 
@@ -241,15 +304,15 @@ img {
     width: 290px; 
     height: 540px;
     min-height: 480px; 
-    background-color: rgba(15, 16, 17, 0.85); 
-    border-left: 3px solid #5a626c; 
-    border-top: 1px solid #282b30;
-    border-right: 1px solid #282b30;
-    border-bottom: 1px solid #282b30;
+    background-color: rgba(var(--panel-rgb), 0.85); 
+    border-left: 3px solid var(--muted); 
+    border-top: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
     padding: 30px 24px; 
     text-align: left;
     z-index: 3;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, calc(0.6 * var(--shadow-k)));
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -266,8 +329,8 @@ img {
 .hero-right-panel {
     left: auto;
     right: 4%;
-    border-left: 1px solid #282b30;
-    border-right: 3px solid #5a626c;
+    border-left: 1px solid var(--line);
+    border-right: 3px solid var(--muted);
 }
 
 .hero-right-panel {
@@ -287,7 +350,7 @@ img {
     right: 15px;
     background: transparent;
     border: none;
-    color: #5a626c;
+    color: var(--muted);
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
     font-weight: 900;
@@ -296,18 +359,18 @@ img {
     line-height: 1;
     transition: color 0.2s ease;
 }
-.panel-close-btn:hover { color: #ffffff; }
+.panel-close-btn:hover { color: var(--text-0); }
 
 .hero-left-panel .panel-header,
 .hero-right-panel .panel-header {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-0);
     letter-spacing: 2px;
     margin-bottom: 15px;
     text-transform: uppercase;
-    border-bottom: 1px solid #282b30;
+    border-bottom: 1px solid var(--line);
     padding-bottom: 10px;
 }
 
@@ -316,7 +379,7 @@ img {
     font-family: 'Rajdhani', sans-serif;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #cbd5e1; 
+    color: var(--text-4); 
     line-height: 1.6;
     letter-spacing: 0.4px;
     margin-bottom: 25px;
@@ -334,18 +397,18 @@ img {
     overflow-y: auto;
     align-content: start;
     scrollbar-width: thin;
-    scrollbar-color: #3a3f45 transparent;
+    scrollbar-color: var(--muted-2) transparent;
 }
 
 .panel-gallery-grid::-webkit-scrollbar { width: 4px; }
-.panel-gallery-grid::-webkit-scrollbar-thumb { background: #3a3f45; }
+.panel-gallery-grid::-webkit-scrollbar-thumb { background: var(--muted-2); }
 
 .panel-gallery-empty {
     grid-column: 1 / -1;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.65rem;
     letter-spacing: 1.5px;
-    color: #5a626c;
+    color: var(--muted);
     text-align: center;
     padding: 30px 0;
 }
@@ -358,29 +421,29 @@ img {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    border: 1px solid #282b30;
+    border: 1px solid var(--line);
     transition: border-color 0.2s ease;
 }
-.gallery-preview-box:hover { border-color: #ffffff; }
+.gallery-preview-box:hover { border-color: var(--text-0); }
 
 .panel-gallery-btn {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 1.5px;
-    color: #ffffff;
+    color: var(--text-0);
     text-align: center;
-    border: 1px solid #5a626c;
+    border: 1px solid var(--muted);
     padding: 12px 0;
     width: 100%;
     margin-top: auto; 
     transition: all 0.2s ease;
 }
 .panel-gallery-btn:hover {
-    background-color: #ffffff;
-    color: #1a1c1e;
-    border-color: #ffffff;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    background-color: var(--text-0);
+    color: var(--bg-3);
+    border-color: var(--text-0);
+    box-shadow: 0 0 15px rgba(var(--glow-rgb), 0.2);
 }
 
 .panel-open-btn {
@@ -388,9 +451,9 @@ img {
     left: -80px; 
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(15, 16, 17, 0.92);
-    border: 1px solid #282b30;
-    border-left: 3px solid #5a626c;
+    background-color: rgba(var(--panel-rgb), 0.92);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--muted);
     padding: 22px 10px;
     cursor: pointer;
     z-index: 4;
@@ -405,13 +468,13 @@ img {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
     font-weight: 900;
-    color: #ffffff;
+    color: var(--text-0);
 }
 .panel-open-btn .open-text {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
-    color: #9aa1a9;
+    color: var(--text-2);
     letter-spacing: 2px;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
@@ -427,9 +490,9 @@ img {
 
 .stat-row {
     padding: 12px 16px;
-    background-color: rgba(12, 13, 14, 0.7);
-    border: 1px solid #282b30;
-    border-left: 3px solid #5a626c;
+    background-color: rgba(var(--bg0-rgb), 0.7);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--muted);
 }
 
 .stat-row-value {
@@ -438,7 +501,7 @@ img {
     font-size: 1.4rem;
     font-weight: 900;
     letter-spacing: 1px;
-    color: #ffffff;
+    color: var(--text-0);
 }
 
 .stat-row-label {
@@ -446,7 +509,7 @@ img {
     margin-top: 4px;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #9aa1a9;
+    color: var(--text-2);
 }
 
 .stat-note {
@@ -454,14 +517,14 @@ img {
     margin-bottom: 10px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #5a626c;
+    color: var(--muted);
 }
 
 .panel-open-btn-right {
     left: auto;
     right: -80px;
-    border-left: 1px solid #282b30;
-    border-right: 3px solid #5a626c;
+    border-left: 1px solid var(--line);
+    border-right: 3px solid var(--muted);
 }
 
 .panel-open-btn-right.btn-visible { left: auto; right: 0; }

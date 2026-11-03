@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <script src="../js/theme-boot.js"></script>
 </head>
 <body>
 
@@ -63,6 +64,13 @@
                 </div>
             </div>
 
+            <div class="admin-tabs" role="tablist">
+                <button type="button" class="admin-tab is-active" role="tab" data-tab="media">MEDYA YÖNETİMİ</button>
+                <button type="button" class="admin-tab" role="tab" data-tab="stats">ZİYARET İSTATİSTİKLERİ</button>
+                <button type="button" class="admin-tab" role="tab" data-tab="logs">IP KAYITLARI</button>
+            </div>
+
+            <div class="tab-panel" data-panel="media">
             <div class="stats-row">
                 <div class="stat-card"><div class="stat-card-label">TOPLAM MEDYA</div><div class="stat-card-value" id="statCount">0</div></div>
                 <div class="stat-card"><div class="stat-card-label">TOPLAM BOYUT</div><div class="stat-card-value" id="statSize">0 KB</div></div>
@@ -145,19 +153,99 @@
                         <label for="teamRole">RÜTBE</label>
                         <input type="text" id="teamRole" class="admin-input" maxlength="40" placeholder="Örn: MODERATOR">
                     </div>
-                    <div class="input-group">
-                        <label for="teamTone">RENK</label>
-                        <select id="teamTone" class="admin-input">
-                            <option value="staff">Ekip (gri)</option>
-                            <option value="ceo">Kurucu (beyaz)</option>
-                            <option value="dev">Geliştirici (kırmızı)</option>
-                            <option value="mgmt">Yönetim (mavi)</option>
-                        </select>
+                    <div class="input-group color-group">
+                        <label for="teamColor">RENK <span id="teamColorPreviewWrap"><span class="badge member-badge" id="teamColorPreview" data-color="#9aa1a9">ÖRNEK</span></span></label>
+                        <div class="color-picker">
+                            <input type="color" id="teamColor" value="#9aa1a9" aria-label="Renk seç">
+                            <input type="text" id="teamColorHex" class="admin-input" maxlength="7" value="#9aa1a9" placeholder="#RRGGBB" spellcheck="false" aria-label="Renk kodu">
+                        </div>
+                        <div class="color-swatches" id="teamSwatches"></div>
                     </div>
                     <button type="button" class="admin-btn" id="teamAddBtn">ÜYE EKLE</button>
                 </div>
 
                 <div class="media-manager-panel team-list" id="teamList"></div>
+            </div>
+            </div>
+
+            <!-- Ziyaret istatistikleri -->
+            <div class="tab-panel" data-panel="stats" hidden>
+                <div class="stats-row" id="visitCards">
+                    <div class="stat-card"><div class="stat-card-label">SON 24 SAAT</div><div class="stat-card-value" data-card="day">—</div><div class="stat-card-sub" data-card-sub="day"></div></div>
+                    <div class="stat-card"><div class="stat-card-label">SON 7 GÜN</div><div class="stat-card-value" data-card="week">—</div><div class="stat-card-sub" data-card-sub="week"></div></div>
+                    <div class="stat-card"><div class="stat-card-label">SON 30 GÜN</div><div class="stat-card-value" data-card="month">—</div><div class="stat-card-sub" data-card-sub="month"></div></div>
+                    <div class="stat-card"><div class="stat-card-label">SON 12 AY</div><div class="stat-card-value" data-card="year">—</div><div class="stat-card-sub" data-card-sub="year"></div></div>
+                </div>
+
+                <div class="chart-head">
+                    <h3 class="panel-title">ZİYARET GRAFİĞİ</h3>
+                    <div class="range-switch" id="rangeSwitch">
+                        <button type="button" class="range-btn" data-range="day">GÜNLÜK</button>
+                        <button type="button" class="range-btn is-active" data-range="week">HAFTALIK</button>
+                        <button type="button" class="range-btn" data-range="month">AYLIK</button>
+                        <button type="button" class="range-btn" data-range="year">YILLIK</button>
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <span><i class="legend-bar"></i>Ziyaret (sayfa görüntüleme)</span>
+                    <span><i class="legend-line"></i>Tekil ziyaretçi (IP)</span>
+                </div>
+                <div class="chart-wrap" id="chartWrap">
+                    <div class="chart-tip" id="chartTip" hidden></div>
+                </div>
+
+                <h3 class="panel-title table-title">SAYISAL VERİ</h3>
+                <div class="data-table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>DÖNEM</th><th class="num">ZİYARET</th><th class="num">TEKİL ZİYARETÇİ</th></tr></thead>
+                        <tbody id="statsBody"></tbody>
+                        <tfoot><tr><td>TOPLAM</td><td class="num" id="sumViews">0</td><td class="num" id="sumUniques">—</td></tr></tfoot>
+                    </table>
+                </div>
+                <p class="stats-note" id="statsNote"></p>
+            </div>
+
+            <!-- IP kayıtları -->
+            <div class="tab-panel" data-panel="logs" hidden>
+                <h3 class="panel-title">YÖNETİM GİRİŞ DENEMELERİ</h3>
+                <div class="stats-row stats-row-3">
+                    <div class="stat-card"><div class="stat-card-label">BAŞARILI GİRİŞ (24 SAAT)</div><div class="stat-card-value" id="loginOk">0</div></div>
+                    <div class="stat-card stat-card-warn"><div class="stat-card-label">BAŞARISIZ DENEME (24 SAAT)</div><div class="stat-card-value" id="loginFail">0</div></div>
+                    <div class="stat-card"><div class="stat-card-label">EN ÇOK BAŞARISIZ IP (7 GÜN)</div><div class="stat-card-value stat-card-mono" id="loginTop">—</div></div>
+                </div>
+                <div class="library-toolbar">
+                    <select id="loginFilter" class="admin-input" aria-label="Sonuca göre filtrele">
+                        <option value="">Tüm denemeler</option>
+                        <option value="failed">Yalnızca başarısız</option>
+                        <option value="success">Yalnızca başarılı</option>
+                    </select>
+                </div>
+                <div class="data-table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>ZAMAN</th><th>IP ADRESİ</th><th>KULLANICI ADI</th><th>SONUÇ</th><th>TARAYICI</th></tr></thead>
+                        <tbody id="loginBody"></tbody>
+                    </table>
+                </div>
+
+                <h3 class="panel-title table-title">SİTE ZİYARETÇİLERİ (IP)</h3>
+                <div class="library-toolbar">
+                    <input type="search" id="ipSearch" class="admin-input search-input" placeholder="IP ara..." aria-label="IP ara">
+                    <select id="ipRange" class="admin-input" aria-label="Zaman aralığı">
+                        <option value="day">Son 24 saat</option>
+                        <option value="week" selected>Son 7 gün</option>
+                        <option value="month">Son 30 gün</option>
+                        <option value="year">Son 12 ay</option>
+                        <option value="all">Tümü</option>
+                    </select>
+                    <label class="check-inline"><input type="checkbox" id="ipBots"> Botları göster</label>
+                </div>
+                <p class="reorder-note" id="ipNote"></p>
+                <div class="data-table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>IP ADRESİ</th><th class="num">ZİYARET</th><th>İLK ZİYARET</th><th>SON ZİYARET</th><th>SON SAYFA</th><th>TARAYICI</th></tr></thead>
+                        <tbody id="ipBody"></tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
@@ -203,14 +291,13 @@
                 <label for="teamEditRole">RÜTBE</label>
                 <input type="text" id="teamEditRole" class="admin-input" maxlength="40">
             </div>
-            <div class="input-group">
-                <label for="teamEditTone">RENK</label>
-                <select id="teamEditTone" class="admin-input">
-                    <option value="staff">Ekip (gri)</option>
-                    <option value="ceo">Kurucu (beyaz)</option>
-                    <option value="dev">Geliştirici (kırmızı)</option>
-                    <option value="mgmt">Yönetim (mavi)</option>
-                </select>
+            <div class="input-group color-group">
+                <label for="teamEditColor">RENK <span><span class="badge member-badge" id="teamEditPreview" data-color="#9aa1a9">ÖRNEK</span></span></label>
+                <div class="color-picker">
+                    <input type="color" id="teamEditColor" value="#9aa1a9" aria-label="Renk seç">
+                    <input type="text" id="teamEditColorHex" class="admin-input" maxlength="7" value="#9aa1a9" placeholder="#RRGGBB" spellcheck="false" aria-label="Renk kodu">
+                </div>
+                <div class="color-swatches" id="teamEditSwatches"></div>
             </div>
             <div class="modal-actions">
                 <button type="button" class="admin-btn admin-btn-ghost" id="teamEditCancel">VAZGEÇ</button>
@@ -234,7 +321,9 @@
     <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 
     <script src="../js/nav.js"></script>
+    <script src="../js/theme.js"></script>
     <script src="../js/admin.js"></script>
     <script src="../js/admin-team.js"></script>
+    <script src="../js/admin-stats.js"></script>
 </body>
 </html>

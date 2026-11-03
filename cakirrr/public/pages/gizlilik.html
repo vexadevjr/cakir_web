@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/sections.css">
     <link rel="stylesheet" href="../css/legal.css">
+    <script src="../js/theme-boot.js"></script>
     <script src="../js/i18n-boot.js"></script>
 </head>
 <body>
@@ -76,24 +77,29 @@
                     </tr></thead>
                     <tbody>
                         <tr>
-                            <td data-i18n-html="priv.s2.b2.r0c0"><strong>Bağlantı bilgileri</strong> (IP adresi, tarayıcı türü, erişim zamanı)</td>
-                            <td data-i18n-html="priv.s2.b2.r0c1">Sitenin sunulması, teknik güvenliğin sağlanması, kötüye kullanımın ve aşırı isteklerin sınırlanması</td>
+                            <td data-i18n-html="priv.s2.b2.r0c0"><strong>Ziyaret kayıtları</strong> (IP adresi, ziyaret edilen sayfa, tarayıcı bilgisi, zaman)</td>
+                            <td data-i18n-html="priv.s2.b2.r0c1">Sitenin sunulması, ziyaret istatistiklerinin tutulması, teknik güvenliğin sağlanması, kötüye kullanımın ve aşırı isteklerin sınırlanması</td>
                             <td data-i18n-html="priv.s2.b2.r0c2">Meşru menfaat (KVKK m.5/2-f); hukuki yükümlülük (m.5/2-ç)</td>
                         </tr>
                         <tr>
-                            <td data-i18n-html="priv.s2.b2.r1c0"><strong>Yönetim kadrosu bilgileri</strong> (görünen ad, rütbe, Discord profil fotoğrafı)</td>
-                            <td data-i18n-html="priv.s2.b2.r1c1">Yönetim kadrosunun sitede tanıtılması</td>
-                            <td data-i18n-html="priv.s2.b2.r1c2">İlgili kişinin açık rızası (m.5/1)</td>
+                            <td data-i18n-html="priv.s2.b2.r1c0"><strong>Yönetici giriş denemeleri</strong> (IP adresi, denenen kullanıcı adı, tarayıcı bilgisi, zaman)</td>
+                            <td data-i18n-html="priv.s2.b2.r1c1">Yönetim paneline yetkisiz erişim girişimlerinin tespiti ve önlenmesi</td>
+                            <td data-i18n-html="priv.s2.b2.r1c2">Meşru menfaat (m.5/2-f)</td>
                         </tr>
                         <tr>
-                            <td data-i18n-html="priv.s2.b2.r2c0"><strong>Yönetici oturum verisi</strong> (yalnızca yetkili yöneticiler)</td>
-                            <td data-i18n-html="priv.s2.b2.r2c1">Yönetim paneline güvenli erişim</td>
-                            <td data-i18n-html="priv.s2.b2.r2c2">Meşru menfaat (m.5/2-f)</td>
+                            <td data-i18n-html="priv.s2.b2.r2c0"><strong>Yönetim kadrosu bilgileri</strong> (görünen ad, rütbe, Discord profil fotoğrafı)</td>
+                            <td data-i18n-html="priv.s2.b2.r2c1">Yönetim kadrosunun sitede tanıtılması</td>
+                            <td data-i18n-html="priv.s2.b2.r2c2">İlgili kişinin açık rızası (m.5/1)</td>
                         </tr>
                         <tr>
-                            <td data-i18n-html="priv.s2.b2.r3c0"><strong>Discord topluluk rakamları</strong> (toplam üye, sürücü ve çevrimiçi sürücü sayıları)</td>
-                            <td data-i18n-html="priv.s2.b2.r3c1">Topluluk bilgisinin paylaşılması. Rakamları hesaplamak için Discord botumuz üyelerin rol ve çevrimiçi durumunu yalnızca geçici olarak bellekte işler; yalnızca toplu sayı yayımlanır, bireysel bilgi saklanmaz veya paylaşılmaz.</td>
+                            <td data-i18n-html="priv.s2.b2.r3c0"><strong>Yönetici oturum verisi</strong> (yalnızca yetkili yöneticiler)</td>
+                            <td data-i18n-html="priv.s2.b2.r3c1">Yönetim paneline güvenli erişim</td>
                             <td data-i18n-html="priv.s2.b2.r3c2">Meşru menfaat (m.5/2-f)</td>
+                        </tr>
+                        <tr>
+                            <td data-i18n-html="priv.s2.b2.r4c0"><strong>Discord topluluk rakamları</strong> (toplam üye, sürücü ve çevrimiçi sürücü sayıları)</td>
+                            <td data-i18n-html="priv.s2.b2.r4c1">Topluluk bilgisinin paylaşılması. Rakamları hesaplamak için Discord botumuz üyelerin rol ve çevrimiçi durumunu yalnızca geçici olarak bellekte işler; yalnızca toplu sayı yayımlanır, bireysel bilgi saklanmaz veya paylaşılmaz.</td>
+                            <td data-i18n-html="priv.s2.b2.r4c2">Meşru menfaat (m.5/2-f)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -103,8 +109,8 @@
 
         <section class="legal-section" id="s3">
             <h2 data-i18n-html="priv.s3.t">Çerezler ve Yerel Depolama</h2>
-            <p data-i18n-html="priv.s3.b1">Sitemiz ziyaretçilere <strong>çerez bırakmaz</strong>; analiz, reklam veya izleme amaçlı hiçbir araç kullanmaz.</p>
-            <p data-i18n-html="priv.s3.b2">Dil seçiminizi hatırlamak için tarayıcınızın yerel depolama alanına yalnızca seçtiğiniz dil kodunu (örneğin “de”) kaydederiz. Bu bilgi cihazınızda kalır, sunucumuza gönderilmez ve tarayıcı verilerinizi sildiğinizde kaldırılır.</p>
+            <p data-i18n-html="priv.s3.b1">Sitemiz ziyaretçilere <strong>çerez bırakmaz</strong>; reklam veya üçüncü taraf analiz/izleme aracı kullanmaz. Ziyaret istatistikleri yalnızca kendi sunucumuzda, Bölüm 2’de belirtilen kayıtlarla tutulur.</p>
+            <p data-i18n-html="priv.s3.b2">Dil ve tema (koyu/açık) tercihinizi hatırlamak için tarayıcınızın yerel depolama alanına yalnızca seçtiğiniz dil kodunu (örneğin “de”) ve tema bilgisini (“light” veya “dark”) kaydederiz. Bu bilgiler cihazınızda kalır, sunucumuza gönderilmez ve tarayıcı verilerinizi sildiğinizde kaldırılır.</p>
             <p data-i18n-html="priv.s3.b3">Yalnızca yönetim paneline giriş yapan yetkili yöneticiler için, oturumu sürdürmek amacıyla zorunlu, <em>httpOnly</em> ve <em>SameSite=Strict</em> özellikli bir oturum çerezi kullanılır. Bu çerez oturum sona erdiğinde veya çıkış yapıldığında geçersiz hale gelir. Zorunlu olduğundan ayrı bir onay gerektirmez.</p>
         </section>
 
@@ -129,7 +135,8 @@
             <h2 data-i18n-html="priv.s6.t">Saklama Süresi</h2>
             <p data-i18n-html="priv.s6.b1">Yönetim kadrosu bilgileri, ilgili kişi görevde kaldığı sürece saklanır; görevden ayrılma veya talep halinde silinir.</p>
             <p data-i18n-html="priv.s6.b2">Bağlantı kayıtları barındırma sağlayıcısının politikasına ve yasal sürelere göre tutulur. Hız sınırlama amacıyla uygulama belleğinde tutulan IP bilgisi kısa süre sonra otomatik olarak silinir.</p>
-            <p data-i18n-html="priv.s6.b3">Yönetici oturum kayıtları, oturum süresi dolduğunda veya çıkış yapıldığında silinir.</p>
+            <p data-i18n-html="priv.s6.b3">Ziyaret ve yönetici giriş denemesi kayıtları (IP adresi dahil) en fazla 400 gün saklanır ve sonrasında otomatik olarak silinir. Bu kayıtlara yalnızca yetkili yöneticiler erişebilir.</p>
+            <p data-i18n-html="priv.s6.b4">Yönetici oturum kayıtları, oturum süresi dolduğunda veya çıkış yapıldığında silinir.</p>
         </section>
 
         <section class="legal-section" id="s7">
@@ -185,6 +192,7 @@
     </footer>
 
     <script src="../js/i18n.js"></script>
+    <script src="../js/theme.js"></script>
     <script src="../js/nav.js"></script>
 </body>
 </html>

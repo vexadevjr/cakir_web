@@ -3,6 +3,7 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const config = require('../config');
+const { recordLogin } = require('../services/audit');
 const { issueSession, readSession, clearSession, safeEqual, requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
@@ -21,7 +22,10 @@ const loginLimiter = rateLimit({
   skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { error: 'Çok fazla başarısız deneme. Lütfen 15 dakika sonra tekrar deneyin.' },
+  handler: (req, res) => {
+    recordLogin(req, 'rate_limited');
+    res.status(429).json({ error: 'Çok fazla başarısız deneme. Lütfen 15 dakika sonra tekrar deneyin.' });
+  },
 });
 
 // 2) Saldırı birçok IP'den dağıtık yapılsa bile saatte en fazla 40 başarısız deneme
@@ -32,7 +36,10 @@ const globalLoginLimiter = rateLimit({
   keyGenerator: () => 'login-global',
   standardHeaders: false,
   legacyHeaders: false,
-  message: { error: 'Giriş geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.' },
+  handler: (req, res) => {
+    recordLogin(req, 'rate_limited');
+    res.status(429).json({ error: 'Giriş geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.' });
+  },
 });
 
 router.post('/login', globalLoginLimiter, loginLimiter, async (req, res, next) => {
@@ -46,10 +53,12 @@ router.post('/login', globalLoginLimiter, loginLimiter, async (req, res, next) =
     const userOk = safeEqual(username, config.adminUsername);
     const passOk = safeEqual(password, config.adminPassword);
     if (!(userOk && passOk)) {
+      recordLogin(req, 'bad_credentials');
       return res.status(401).json({ error: 'Kullanıcı adı veya şifre hatalı.' });
     }
 
     const csrf = await issueSession(res, config.adminUsername);
+    recordLogin(req, 'success');
     res.json({ username: config.adminUsername, csrf });
   } catch (err) {
     next(err);

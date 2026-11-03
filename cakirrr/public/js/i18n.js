@@ -1,4 +1,4 @@
-// Çok dilli destek: Türkçe (varsayılan), İngilizce, Almanca, İspanyolca
+// Çok dilli destek: Türkçe (varsayılan), İngilizce, Almanca, İspanyolca, Rusça
 // Sayfadaki Türkçe metinler kaynak kabul edilir; js/lang/*.js dosyaları "Türkçe metin -> çeviri" eşlemesi içerir.
 (function () {
     "use strict";
@@ -7,7 +7,8 @@
         { code: "tr", label: "Türkçe", short: "TR", locale: "tr-TR" },
         { code: "en", label: "English", short: "EN", locale: "en-US" },
         { code: "de", label: "Deutsch", short: "DE", locale: "de-DE" },
-        { code: "es", label: "Español", short: "ES", locale: "es-ES" }
+        { code: "es", label: "Español", short: "ES", locale: "es-ES" },
+        { code: "ru", label: "Русский", short: "RU", locale: "ru-RU" }
     ];
     var STORAGE_KEY = "cakir_lang";
     var SKIP_TAGS = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, TEXTAREA: 1 };

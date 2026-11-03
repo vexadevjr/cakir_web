@@ -100,16 +100,16 @@
     // ---------- Yönetim kadrosu ----------
     // API'ye ulaşılamazsa gösterilecek varsayılan liste
     var FALLBACK_TEAM = [
-        { name: "Çakır", role: "FOUNDER / CEO", tone: "ceo", avatar: "images/cakir_logo1.png" },
-        { name: "Vexa", role: "DEVELOPER", tone: "dev", avatar: "images/vexa.png" },
-        { name: "Lutzz", role: "MANAGEMENT", tone: "mgmt", avatar: "images/lutz.png" }
+        { name: "Çakır", role: "FOUNDER / CEO", color: "#ffffff", avatar: "images/cakir_logo1.png" },
+        { name: "Vexa", role: "DEVELOPER", color: "#ff3333", avatar: "images/vexa.png" },
+        { name: "Lutzz", role: "MANAGEMENT", color: "#5865F2", avatar: "images/lutz.png" }
     ];
-    var TONES = ["ceo", "dev", "mgmt", "staff"];
 
     function buildMember(member, className) {
-        var tone = TONES.indexOf(member.tone) === -1 ? "staff" : member.tone;
         var card = document.createElement("div");
-        card.className = className + " card-" + tone;
+        card.className = className;
+        // Serbest renk: geçersizse nötr griye düşer; temaya uyarlama js/theme.js içinde yapılır
+        card.setAttribute("data-color", window.CakirColor && window.CakirColor.isHex(member.color) ? member.color : "#6b737d");
 
         var img = document.createElement("img");
         img.className = "discord-avatar";
@@ -150,6 +150,7 @@
             teamGrid.textContent = "";
             members.forEach(function (m) { teamGrid.appendChild(buildMember(m, "team-card")); });
         }
+        if (window.CakirTheme) window.CakirTheme.paint();
     }
 
     renderTeam(FALLBACK_TEAM);

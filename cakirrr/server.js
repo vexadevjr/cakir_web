@@ -10,22 +10,12 @@ const config = require('./config');
 const { connectDB } = require('./config/db');
 const { logError } = require('./utils/redact');
 const stats = require('./services/stats');
+const { track, pageLimiter, PAGE_PATHS } = require('./middleware/tracker');
+const { COOKIE_NAME } = require('./middleware/auth');
 const { seedDefaults, seedTeam } = require('./scripts/seed');
 
 const app = express();
 const publicDir = path.join(__dirname, 'public');
-
-app.set('trust proxy', true);
-
-app.use((req, res, next) => {
-    let userIp = req.headers['x-forwarded-for'] || req.ip;
-    
-    if (userIp && userIp.includes(',')) {
-        userIp = userIp.split(',')[0].trim();
-    }
-    console.log(`[ZİYARETÇİ IP] Zaman: ${new Date().toISOString()} - IP: ${userIp} - Sayfa: ${req.originalUrl}`);
-    next();
-});
 
 app.disable('x-powered-by');
 if (config.trustProxy) app.set('trust proxy', config.trustProxy);
@@ -66,7 +56,11 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/media', require('./routes/media'));
 app.use('/api/team', require('./routes/team'));
 app.use('/api/stats', require('./routes/stats'));
+app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Kaynak bulunamadı.' }));
+
+// Sayfa ziyaretleri kaydedilir (yönetici ve API istekleri hariç)
+app.get(PAGE_PATHS, pageLimiter, track(COOKIE_NAME));
 
 // Yönetim sayfası arama motorlarından gizlenir
 app.use('/pages/admin.html', (req, res, next) => {
@@ -82,7 +76,17 @@ app.get('/admin', (req, res) => {
 });
 
 // Yalnızca public klasörü servis edilir; proje kökü (.env vb.) dışarı açılmaz
-app.use(express.static(publicDir, { dotfiles: 'deny', index: 'index.html', maxAge: config.isProd ? '1h' : 0 }));
+app.use(
+  express.static(publicDir, {
+    dotfiles: 'deny',
+    index: 'index.html',
+    maxAge: config.isProd ? '1h' : 0,
+    // HTML her seferinde doğrulanır; böylece her sayfa açılışı sunucuya ulaşır ve ziyaret olarak sayılır
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.html')) res.set('Cache-Control', 'no-cache');
+    },
+  })
+);
 
 app.use((req, res) => res.status(404).sendFile(path.join(publicDir, 'index.html')));
 

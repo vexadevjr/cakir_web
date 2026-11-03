@@ -82,4 +82,4 @@ async function clearSession(req, res) {
   res.clearCookie(COOKIE_NAME, opts);
 }
 
-module.exports = { requireAuth, issueSession, readSession, clearSession, safeEqual };
+module.exports = { COOKIE_NAME, requireAuth, issueSession, readSession, clearSession, safeEqual };

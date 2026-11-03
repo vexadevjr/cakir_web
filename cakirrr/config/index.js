@@ -40,6 +40,17 @@ if (adminPassword === adminUsername) {
   throw new Error('ADMIN_PASSWORD kullanıcı adıyla aynı olamaz.');
 }
 
+// Ziyaret ve giriş kayıtlarının saklanacağı gün sayısı (sonrasında MongoDB otomatik siler)
+const logRetentionDays = Math.max(1, parseInt(process.env.LOG_RETENTION_DAYS, 10) || 400);
+
+// Grafik gün/saat sınırlarının hesaplanacağı saat dilimi
+const statsTimezone = (process.env.STATS_TIMEZONE || 'Europe/Istanbul').trim();
+try {
+  new Intl.DateTimeFormat('en-US', { timeZone: statsTimezone });
+} catch {
+  throw new Error('STATS_TIMEZONE geçerli bir saat dilimi olmalıdır (örn. Europe/Istanbul).');
+}
+
 module.exports = {
   isProd,
   port: parseInt(process.env.PORT, 10) || 3000,
@@ -53,6 +64,8 @@ module.exports = {
   discordBotToken: (process.env.DISCORD_BOT_TOKEN || '').trim(),
   discordGuildId: optionalId('DISCORD_GUILD_ID'),
   discordDriverRoleId: optionalId('DISCORD_DRIVER_ROLE_ID'),
+  logRetentionDays,
+  statsTimezone,
   seedDemo: process.env.SEED_DEMO !== 'false',
   maxUploadBytes: 8 * 1024 * 1024,
 };

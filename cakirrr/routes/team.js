@@ -2,7 +2,7 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const { TeamMember, TONES } = require('../models/TeamMember');
+const { TeamMember, HEX_COLOR, DEFAULT_COLOR } = require('../models/TeamMember');
 const { requireAuth } = require('../middleware/auth');
 const discord = require('../services/discord');
 
@@ -86,10 +86,15 @@ router.post('/', requireAuth, async (req, res, next) => {
     if (!role) return res.status(400).json({ error: 'Rütbe alanı zorunludur.' });
     if (!discordId && !name) return res.status(400).json({ error: 'Discord ID veya isim girin.' });
 
+    if (body.color !== undefined && body.color !== '') {
+      if (typeof body.color !== 'string' || !HEX_COLOR.test(body.color)) {
+        return res.status(400).json({ error: 'Renk #RRGGBB biçiminde olmalıdır.' });
+      }
+    }
     const last = await TeamMember.findOne().sort({ order: -1 }).select('order');
     const member = new TeamMember({
       role,
-      tone: TONES.includes(body.tone) ? body.tone : 'staff',
+      color: typeof body.color === 'string' && HEX_COLOR.test(body.color) ? body.color.toLowerCase() : DEFAULT_COLOR,
       order: last ? last.order + 1 : 0,
     });
 
@@ -137,9 +142,11 @@ router.patch('/:id', requireAuth, validId, async (req, res, next) => {
       update.role = cleanText(body.role, 40);
       if (!update.role) return res.status(400).json({ error: 'Rütbe boş bırakılamaz.' });
     }
-    if ('tone' in body) {
-      if (!TONES.includes(body.tone)) return res.status(400).json({ error: 'Geçersiz renk seçimi.' });
-      update.tone = body.tone;
+    if ('color' in body) {
+      if (typeof body.color !== 'string' || !HEX_COLOR.test(body.color)) {
+        return res.status(400).json({ error: 'Renk #RRGGBB biçiminde olmalıdır.' });
+      }
+      update.color = body.color.toLowerCase();
     }
     const member = await TeamMember.findByIdAndUpdate(req.params.id, { $set: update }, { new: true, runValidators: true });
     if (!member) return res.status(404).json({ error: 'Üye bulunamadı.' });
