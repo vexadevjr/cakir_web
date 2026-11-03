@@ -105,12 +105,26 @@ router.post(
 );
 
 // Oturum kontrolü
-router.get('/me', requireAuth, (req, res) => {
-  res.json({
-    authenticated: true,
-    username: req.session.username
-  });
+
+router.get('/me', async (req, res, next) => {
+  try {
+    const session = await readSession(req);
+
+    if (!session) {
+      return res.status(401).json({
+        error: 'Oturum yok.'
+      });
+    }
+
+    res.json({
+      username: session.sub,
+      csrf: session.csrf
+    });
+  } catch (err) {
+    next(err);
+  }
 });
+
 
 // Oturum kapatma
 router.post('/logout', requireAuth, (req, res) => {
