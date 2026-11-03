@@ -60,7 +60,7 @@ router.post('/login', globalLoginLimiter, loginLimiter, async (req, res, next) =
     }
 
     const csrf = await issueSession(res, config.adminUsername);
-    recordLogin(req, 'success');
+    await recordLogin(req, 'success');
     res.json({ username: config.adminUsername, csrf });
   } catch (err) {
     next(err);
