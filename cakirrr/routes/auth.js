@@ -55,7 +55,7 @@ router.post('/login', globalLoginLimiter, loginLimiter, async (req, res, next) =
     const userOk = safeEqual(username, config.adminUsername);
     const passOk = safeEqual(password, config.adminPassword);
     if (!(userOk && passOk)) {
-      recordLogin(req, 'bad_credentials');
+      await recordLogin(req, 'bad_credentials');
       return res.status(401).json({ error: 'Kullanıcı adı veya şifre hatalı.' });
     }
 
