@@ -203,5 +203,6 @@ window.I18N_DICT.en = {
  "TruckersMP kurallarına tam uyum esastır. Konvoyda sıra, mesafe ve hız kurallarına eksiksiz uyar, yoldaki her sürücüye saygı gösteririz.": "Full compliance with TruckersMP rules is essential. We strictly follow order, distance and speed rules in convoy and respect every driver on the road.",
  "Düzenli konvoylar": "Regular convoys",
  "Samimi ekip ortamı": "Friendly team atmosphere",
- "TruckersMP kurallarına uyum": "Compliance with TruckersMP rules"
+ "TruckersMP kurallarına uyum": "Compliance with TruckersMP rules",
+ "S.S.S.": "FAQ"
 };

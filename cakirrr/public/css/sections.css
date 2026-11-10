@@ -202,6 +202,7 @@
 /* Ortak bölüm ayracı ve etiketi */
 .about-block-section {
     margin-top: 90px;
+    scroll-margin-top: 100px;
 }
 
 .section-label {

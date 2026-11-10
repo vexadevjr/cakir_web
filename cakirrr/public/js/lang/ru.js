@@ -203,5 +203,6 @@ window.I18N_DICT.ru = {
  "TruckersMP kurallarına tam uyum esastır. Konvoyda sıra, mesafe ve hız kurallarına eksiksiz uyar, yoldaki her sürücüye saygı gösteririz.": "Полное соблюдение правил TruckersMP обязательно. В конвое мы строго соблюдаем порядок, дистанцию и скорость и уважаем каждого водителя на дороге.",
  "Düzenli konvoylar": "Регулярные конвои",
  "Samimi ekip ortamı": "Дружная атмосфера в команде",
- "TruckersMP kurallarına uyum": "Соблюдение правил TruckersMP"
+ "TruckersMP kurallarına uyum": "Соблюдение правил TruckersMP",
+ "S.S.S.": "ЧаВО"
 };
