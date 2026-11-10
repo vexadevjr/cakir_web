@@ -187,5 +187,21 @@ window.I18N_DICT.en = {
  "terms.s10.b2": "For questions, you can contact the management team through our <a href=\"https://discord.com/invite/cakircompany\" target=\"_blank\" rel=\"noopener noreferrer\">Discord server</a>.",
  "Kullanım Koşulları": "Terms of Use",
  "Kullanım Koşulları | ÇAKIR COMPANY": "Terms of Use | ÇAKIR COMPANY",
- "Çakır Company internet sitesi kullanım koşulları: kapsam, marka bildirimi, fikri mülkiyet, kullanıcı yükümlülükleri ve sorumluluk sınırları.": "Terms of use of the Çakır Company website: scope, trademark notice, intellectual property, user obligations and limits of liability."
+ "Çakır Company internet sitesi kullanım koşulları: kapsam, marka bildirimi, fikri mülkiyet, kullanıcı yükümlülükleri ve sorumluluk sınırları.": "Terms of use of the Çakır Company website: scope, trademark notice, intellectual property, user obligations and limits of liability.",
+ "SIKÇA SORULAN SORULAR": "FREQUENTLY ASKED QUESTIONS",
+ "Çakır Company nedir?": "What is Çakır Company?",
+ "Çakır Company, TruckersMP üzerinde Euro Truck Simulator 2 oynayan sürücüleri ortak bir çatı altında buluşturan sanal taşımacılık şirketidir.": "Çakır Company is a virtual logistics company that brings together drivers who play Euro Truck Simulator 2 on TruckersMP under one roof.",
+ "Nasıl katılabilirim?": "How can I join?",
+ "Discord sunucumuza katılıp ekiple tanışabilir, VTC sayfamızdan şirketimizi inceleyebilirsin. Katılım için ilk adım Discord sunucumuzdur.": "You can join our Discord server to meet the team and explore our company on our VTC page. The first step to joining is our Discord server.",
+ "Yeni başlayanlar katılabilir mi?": "Can beginners join?",
+ "Evet. Yeni başlayanlar da deneyimliler de aynı ekibin parçasıdır. Her yeni üyeyi aynı özenle karşılıyoruz.": "Yes. Beginners and experienced drivers are part of the same team. We welcome every new member with the same care.",
+ "Hangi oyunda ve platformda aktifiz?": "Which game and platform are we active on?",
+ "Euro Truck Simulator 2 oynuyor ve TruckersMP üzerinde sürüyoruz.": "We play Euro Truck Simulator 2 and drive on TruckersMP.",
+ "Konvoylardan nasıl haberdar olurum?": "How do I find out about convoys?",
+ "Konvoylarımız ve etkinliklerimiz hakkında bilgiyi Discord sunucumuzdan takip edebilirsin.": "You can follow information about our convoys and events on our Discord server.",
+ "Uymam gereken kurallar neler?": "What rules do I need to follow?",
+ "TruckersMP kurallarına tam uyum esastır. Konvoyda sıra, mesafe ve hız kurallarına eksiksiz uyar, yoldaki her sürücüye saygı gösteririz.": "Full compliance with TruckersMP rules is essential. We strictly follow order, distance and speed rules in convoy and respect every driver on the road.",
+ "Düzenli konvoylar": "Regular convoys",
+ "Samimi ekip ortamı": "Friendly team atmosphere",
+ "TruckersMP kurallarına uyum": "Compliance with TruckersMP rules"
 };

@@ -3,7 +3,7 @@
    ========================================================================== */
 body {
     padding-top: 75px;
-    background: linear-gradient(to bottom, rgba(var(--bg0-rgb), 0.85), var(--bg-0)), url('../images/cakir_banner1.jpg') no-repeat center center/cover;
+    background: linear-gradient(to bottom, rgba(var(--bg0-rgb), 0.85), var(--bg-0)), url('../images/cakir_banner1.webp') no-repeat center center/cover;
     background-attachment: fixed;
     min-height: 100vh;
 }

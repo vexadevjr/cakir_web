@@ -90,7 +90,7 @@
         img.alt = m.name;
         img.referrerPolicy = "no-referrer";
         img.src = m.avatar;
-        img.addEventListener("error", function () { img.onerror = null; img.src = "/images/cakir_logo1.png"; });
+        img.addEventListener("error", function () { img.onerror = null; img.src = "/images/cakir_logo1.webp"; });
 
         var details = el("div", "item-details");
         details.appendChild(el("div", "item-title", m.name));

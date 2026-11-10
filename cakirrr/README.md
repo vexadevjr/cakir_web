@@ -39,14 +39,30 @@ Tüm Discord verileri sunucu tarafında çekilir; bot anahtarı tarayıcıya hi�
 - Sayılar canlı olarak güncellenir (üye veya durum değişince birkaç saniye içinde). Bot bağlanamazsa site çökmez; toplam sayılar yedek yöntemle gösterilir ve "Aktif sürücü" satırı gizlenir. Intent'ler kapalıysa sunucu konsolunda bunu söyleyen bir uyarı görürsünüz.
 - Sitede yalnızca toplu sayılar yer alır; üyelerin rol ve durum bilgisi hiçbir yerde saklanmaz veya paylaşılmaz.
 
-## Diller
+## Diller ve tema
 
-Sitede Türkçe (varsayılan), İngilizce, Almanca ve İspanyolca desteklenir. Menüde Galeri'nin sağındaki dil seçici ile değiştirilir; seçim tarayıcıda hatırlanır. Yönetim paneli yalnızca Türkçedir.
+**Diller:** Türkçe (varsayılan), İngilizce, Almanca, İspanyolca ve Rusça. Menüde Galeri'nin sağındaki dil seçici ile değiştirilir; seçim tarayıcıda hatırlanır. Yönetim paneli yalnızca Türkçedir.
 
-- Çeviriler `public/js/lang/en.js`, `de.js`, `es.js` dosyalarındadır. Çoğu giriş `"Türkçe kaynak metin": "çeviri"` biçimindedir; sayfadaki Türkçe metni değiştirirseniz sözlükteki anahtarı da aynı şekilde güncelleyin.
-- Gizlilik Politikası ve Kullanım Koşulları paragrafları `priv.s1.b1` gibi kimliklerle çevrilir; bu sayfalardaki Türkçe metni değiştirirken üç dil dosyasındaki aynı kimliği de güncelleyin.
-- Yeni bir metin eklerseniz sözlüğe girmezseniz Türkçe görünür. Galeri başlıkları ve açıklamaları panelden tek dilde girilir; yalnızca örnek (demo) kayıtların çevirisi hazırdır.
+- Çeviriler `public/js/lang/en.js`, `de.js`, `es.js`, `ru.js` dosyalarındadır. Çoğu giriş `"Türkçe kaynak metin": "çeviri"` biçimindedir; sayfadaki Türkçe metni değiştirirseniz sözlükteki anahtarı da aynı şekilde güncelleyin.
+- Gizlilik Politikası ve Kullanım Koşulları paragrafları `priv.s1.b1` gibi kimliklerle çevrilir; bu sayfalardaki Türkçe metni değiştirirken tüm dil dosyalarındaki aynı kimliği de güncelleyin.
+- Sözlükte karşılığı olmayan metin Türkçe görünür. Galeri başlıkları ve açıklamaları panelden tek dilde girilir; yalnızca örnek (demo) kayıtların çevirisi hazırdır.
 - Yeni dil eklemek için `public/js/lang/xx.js` oluşturup `public/js/i18n.js` içindeki `LANGS` listesine ekleyin.
+
+**Tema:** Varsayılan koyu temadır. Dil seçicinin sağındaki düğme koyu/açık temayı değiştirir (koyuyken ay, açıkken güneş simgesi görünür) ve seçim tarayıcıda hatırlanır. Tüm renkler `public/css/global.css` başındaki değişkenlerden gelir; tonları buradan ayarlayabilirsiniz. Yönetim paneli de aynı temayı kullanır.
+
+## Ziyaret istatistikleri ve IP kayıtları
+
+Yönetim panelinde iki yeni sekme vardır:
+
+- **Ziyaret İstatistikleri:** Günlük (son 24 saat), haftalık (7 gün), aylık (30 gün) ve yıllık (12 ay) grafik; her aralık için ziyaret ve tekil ziyaretçi sayıları ile satır satır sayısal tablo.
+- **IP Kayıtları:** Yönetim paneline giriş denemeleri (başarılı, hatalı, engellenen; IP, denenen kullanıcı adı, tarayıcı) ve siteyi ziyaret edenlerin IP listesi (ziyaret sayısı, ilk/son ziyaret, son sayfa). Bot olduğu anlaşılanlar işaretlenir.
+
+Ayrıntılar:
+- Ziyaret yalnızca ana sayfa, galeri ve resmi sayfaların açılışında sayılır. Yönetici oturumu açıkken yaptığınız gezintiler ve botlar istatistiğe katılmaz. Aynı IP'nin aynı sayfayı 30 saniye içinde yenilemesi tek ziyarettir. Tekil ziyaretçi = tekil IP.
+- Kayıtlar `LOG_RETENTION_DAYS` gün (varsayılan 400) sonra MongoDB tarafından otomatik silinir. Bu süreyi değiştirirseniz Gizlilik Politikası'ndaki "400 gün" ifadesini de güncelleyin.
+- `STATS_TIMEZONE` grafiklerdeki gün/saat sınırlarını belirler (varsayılan Europe/Istanbul).
+- **Önemli:** Nginx, Cloudflare, Render, Railway gibi bir proxy arkasındaysanız `.env` içine `TRUST_PROXY=1` yazın. Aksi halde tüm ziyaretçiler proxy'nin IP'siyle görünür.
+- IP adresleri kişisel veridir. Gizlilik Politikası bu kayıtları belirtecek şekilde güncellenmiştir; kayıtlara yalnızca yönetici erişir.
 
 ## Klasör yapısı
 
@@ -56,7 +72,8 @@ config/          Ortam değişkenleri ve MongoDB bağlantısı
 models/          Mongoose modelleri
 middleware/      Oturum ve CSRF doğrulaması
 routes/          /api/auth, /api/media, /api/team ve /api/stats uç noktaları
-services/        Discord API istemcisi ve istatistik önbelleği
+services/        Discord API istemcisi, canlı sayım, giriş denetim kaydı
+middleware/      Oturum, CSRF ve ziyaret izleme
 utils/           Log maskeleme yardımcıları
 scripts/         İlk kurulum örnek verisi
 public/          Tarayıcıya sunulan site dosyaları (js/lang: çeviriler)

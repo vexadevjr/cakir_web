@@ -13,9 +13,9 @@ const DEFAULTS = [
 ];
 
 const TEAM_DEFAULTS = [
-  { name: 'Çakır', role: 'FOUNDER / CEO', color: '#ffffff', fallbackAvatar: '/images/cakir_logo1.png' },
-  { name: 'Vexa', role: 'DEVELOPER', color: '#ff3333', fallbackAvatar: '/images/vexa.png' },
-  { name: 'Lutzz', role: 'MANAGEMENT', color: '#5865f2', fallbackAvatar: '/images/lutz.png' },
+  { name: 'Çakır', role: 'FOUNDER / CEO', color: '#ffffff', fallbackAvatar: '/images/cakir_logo1.webp' },
+  { name: 'Vexa', role: 'DEVELOPER', color: '#ff3333', fallbackAvatar: '/images/vexa.webp' },
+  { name: 'Lutzz', role: 'MANAGEMENT', color: '#5865f2', fallbackAvatar: '/images/lutz.webp' },
 ];
 
 // Yönetim kadrosunu mevcut üçlüyle başlatır; yönetim panelinden Discord hesaplarına bağlanabilir
@@ -33,10 +33,10 @@ async function seedDefaults() {
   if (await Setting.findOne({ key: 'gallerySeeded' })) return;
 
   if ((await Media.countDocuments()) === 0) {
-    const file = path.join(__dirname, '..', 'public', 'images', 'cakir_banner1.jpg');
+    const file = path.join(__dirname, '..', 'public', 'images', 'cakir_banner1.webp');
     const data = fs.readFileSync(file);
     await Media.insertMany(
-      DEFAULTS.map((item, order) => ({ ...item, order, size: data.length, image: { data, contentType: 'image/jpeg' } }))
+      DEFAULTS.map((item, order) => ({ ...item, order, size: data.length, image: { data, contentType: 'image/webp' } }))
     );
     console.log('[Seed] Örnek galeri içeriği eklendi.');
   }

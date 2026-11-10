@@ -99,7 +99,7 @@
         if (theme === "light") document.documentElement.setAttribute("data-theme", "light");
         else document.documentElement.removeAttribute("data-theme");
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute("content", theme === "light" ? "#f3f4f6" : "#0f1011");
+        if (meta) meta.setAttribute("content", theme === "light" ? "#eff1f4" : "#0f1011");
         updateButton();
         paint();
         document.dispatchEvent(new CustomEvent("theme:change", { detail: { theme: theme } }));

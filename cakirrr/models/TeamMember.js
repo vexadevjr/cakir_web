@@ -23,7 +23,10 @@ const teamSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const DEFAULT_AVATAR = '/images/cakir_logo1.png';
+const DEFAULT_AVATAR = '/images/cakir_logo1.webp';
+// Veritabanında eski kayıtlarda kalmış yerel .png yollarını .webp karşılığına çevirir
+const LEGACY_LOCAL_AVATAR = /^(\/images\/(?:cakir_logo1|vexa|lutz))\.png$/;
+const modernAvatar = (url) => (typeof url === 'string' ? url.replace(LEGACY_LOCAL_AVATAR, '$1.webp') : url);
 const DEFAULT_COLOR = '#9aa1a9';
 const TONE_COLORS = { ceo: '#ffffff', dev: '#ff3333', mgmt: '#5865f2', staff: DEFAULT_COLOR };
 const HEX_COLOR = /^#[0-9a-fA-F]{6}$/;
@@ -34,7 +37,7 @@ teamSchema.methods.toPublic = function toPublic() {
     name: this.name,
     role: this.role,
     color: this.color || TONE_COLORS[this.tone] || DEFAULT_COLOR,
-    avatar: this.avatarUrl || this.fallbackAvatar || DEFAULT_AVATAR,
+    avatar: this.avatarUrl || modernAvatar(this.fallbackAvatar) || DEFAULT_AVATAR,
   };
 };
 

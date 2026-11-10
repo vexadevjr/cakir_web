@@ -187,5 +187,21 @@ window.I18N_DICT.es = {
  "terms.s10.b2": "Si tiene preguntas, puede ponerse en contacto con el equipo de dirección a través de nuestro <a href=\"https://discord.com/invite/cakircompany\" target=\"_blank\" rel=\"noopener noreferrer\">servidor de Discord</a>.",
  "Kullanım Koşulları": "Condiciones de uso",
  "Kullanım Koşulları | ÇAKIR COMPANY": "Condiciones de uso | ÇAKIR COMPANY",
- "Çakır Company internet sitesi kullanım koşulları: kapsam, marka bildirimi, fikri mülkiyet, kullanıcı yükümlülükleri ve sorumluluk sınırları.": "Condiciones de uso del sitio web de Çakır Company: alcance, aviso de marcas, propiedad intelectual, obligaciones del usuario y límites de responsabilidad."
+ "Çakır Company internet sitesi kullanım koşulları: kapsam, marka bildirimi, fikri mülkiyet, kullanıcı yükümlülükleri ve sorumluluk sınırları.": "Condiciones de uso del sitio web de Çakır Company: alcance, aviso de marcas, propiedad intelectual, obligaciones del usuario y límites de responsabilidad.",
+ "SIKÇA SORULAN SORULAR": "PREGUNTAS FRECUENTES",
+ "Çakır Company nedir?": "¿Qué es Çakır Company?",
+ "Çakır Company, TruckersMP üzerinde Euro Truck Simulator 2 oynayan sürücüleri ortak bir çatı altında buluşturan sanal taşımacılık şirketidir.": "Çakır Company es una empresa de transporte virtual que reúne bajo un mismo techo a los conductores que juegan a Euro Truck Simulator 2 en TruckersMP.",
+ "Nasıl katılabilirim?": "¿Cómo puedo unirme?",
+ "Discord sunucumuza katılıp ekiple tanışabilir, VTC sayfamızdan şirketimizi inceleyebilirsin. Katılım için ilk adım Discord sunucumuzdur.": "Puedes unirte a nuestro servidor de Discord para conocer al equipo y descubrir nuestra empresa en nuestra página VTC. El primer paso para unirte es nuestro servidor de Discord.",
+ "Yeni başlayanlar katılabilir mi?": "¿Pueden unirse los principiantes?",
+ "Evet. Yeni başlayanlar da deneyimliler de aynı ekibin parçasıdır. Her yeni üyeyi aynı özenle karşılıyoruz.": "Sí. Los principiantes y los conductores con experiencia forman parte del mismo equipo. Recibimos a cada nuevo miembro con el mismo cuidado.",
+ "Hangi oyunda ve platformda aktifiz?": "¿En qué juego y plataforma estamos activos?",
+ "Euro Truck Simulator 2 oynuyor ve TruckersMP üzerinde sürüyoruz.": "Jugamos a Euro Truck Simulator 2 y conducimos en TruckersMP.",
+ "Konvoylardan nasıl haberdar olurum?": "¿Cómo me entero de los convoyes?",
+ "Konvoylarımız ve etkinliklerimiz hakkında bilgiyi Discord sunucumuzdan takip edebilirsin.": "Puedes seguir la información sobre nuestros convoyes y eventos en nuestro servidor de Discord.",
+ "Uymam gereken kurallar neler?": "¿Qué normas debo cumplir?",
+ "TruckersMP kurallarına tam uyum esastır. Konvoyda sıra, mesafe ve hız kurallarına eksiksiz uyar, yoldaki her sürücüye saygı gösteririz.": "El cumplimiento total de las normas de TruckersMP es esencial. En convoy respetamos estrictamente el orden, la distancia y la velocidad, y respetamos a todos los conductores en la carretera.",
+ "Düzenli konvoylar": "Convoyes regulares",
+ "Samimi ekip ortamı": "Ambiente de equipo cercano",
+ "TruckersMP kurallarına uyum": "Cumplimiento de las normas de TruckersMP"
 };

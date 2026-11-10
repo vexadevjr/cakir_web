@@ -54,6 +54,17 @@
             .catch(function () { /* varsayılan görseller kalır */ });
     }
 
+    // ---------- S.S.S.: aynı anda tek soru açık kalır ----------
+    var faqList = document.getElementById("faqList");
+    if (faqList) {
+        faqList.addEventListener("toggle", function (e) {
+            if (!e.target.open) return;
+            faqList.querySelectorAll("details[open]").forEach(function (d) {
+                if (d !== e.target) d.open = false;
+            });
+        }, true);
+    }
+
     // ---------- Discord rakamları ----------
     var statList = document.getElementById("statList");
     var statNote = document.getElementById("statNote");
@@ -89,7 +100,7 @@
                 }
                 lastStats = stats;
                 renderStats();
-                statNote.textContent = "Kaynak: Discord sunucumuz";
+                statNote.textContent = "";
             })
             .catch(function () { statNote.textContent = "Rakamlar şu an alınamıyor."; });
 
@@ -100,9 +111,9 @@
     // ---------- Yönetim kadrosu ----------
     // API'ye ulaşılamazsa gösterilecek varsayılan liste
     var FALLBACK_TEAM = [
-        { name: "Çakır", role: "FOUNDER / CEO", color: "#ffffff", avatar: "images/cakir_logo1.png" },
-        { name: "Vexa", role: "DEVELOPER", color: "#ff3333", avatar: "images/vexa.png" },
-        { name: "Lutzz", role: "MANAGEMENT", color: "#5865F2", avatar: "images/lutz.png" }
+        { name: "Çakır", role: "FOUNDER / CEO", color: "#ffffff", avatar: "images/cakir_logo1.webp" },
+        { name: "Vexa", role: "DEVELOPER", color: "#ff3333", avatar: "images/vexa.webp" },
+        { name: "Lutzz", role: "MANAGEMENT", color: "#5865F2", avatar: "images/lutz.webp" }
     ];
 
     function buildMember(member, className) {
@@ -120,7 +131,7 @@
         // Discord görseli yüklenemezse şirket logosu gösterilir
         img.addEventListener("error", function () {
             img.onerror = null;
-            img.src = "images/cakir_logo1.png";
+            img.src = "images/cakir_logo1.webp";
         });
 
         var info = document.createElement("div");
